@@ -13,7 +13,11 @@ namespace ResourcePlacement.Model
     {
         [Key]
         public int Id { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-zA-Z''-'\s]{1,40}$",
+         ErrorMessage = "Characters are not allowed.")]
         public string Title { get; set; }
+        [Required]
         public string Description { get; set; }
         public int CompanyId { get; set; }
 

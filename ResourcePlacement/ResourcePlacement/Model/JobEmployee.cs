@@ -14,7 +14,9 @@ namespace ResourcePlacement.Model
         [Key]
         public string EmployeeId { get; set; }
         public int JobId { get; set; }
+        [Required]
         public int Status { get; set; }
+        [Required]
         public DateTime RecordDate { get; set; }
         public string Interviewer { get; set; }
         public int InterviewResult { get; set; }

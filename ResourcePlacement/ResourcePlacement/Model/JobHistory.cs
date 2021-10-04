@@ -12,7 +12,9 @@ namespace ResourcePlacement.Model
     public class JobHistory
     {
         public string EmployeeId { get; set; }
+        [Required]
         public DateTime StartDate { get; set; }
+        [Required]
         public DateTime EndDate { get; set; }
         public int JobId { get; set; }
 

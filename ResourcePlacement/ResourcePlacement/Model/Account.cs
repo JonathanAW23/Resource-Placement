@@ -13,6 +13,11 @@ namespace ResourcePlacement.Model
     {
         [Key]
         public string Id { get; set; }
+        [Required]
+        [RegularExpression(@"^[a-zA-Z0-9-+_!@#$%^&*.,?''-'\s]{1,40}$",
+         ErrorMessage = "Characters are not allowed.")]
+        [MinLength(8, ErrorMessage = "Password must be at least 8 characters long")]
+        [MaxLength(12, ErrorMessage = "Password cannot exceed 12 characters")]
         public string Password { get; set; }
         [JsonIgnore]
         public virtual Employee Employee { get; set; }
