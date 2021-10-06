@@ -83,7 +83,7 @@ namespace ResourcePlacement.Repository.Data
                 DateTime today = DateTime.Now;
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
-                message.From = new MailAddress("emailpengirim");//email pengirim
+                message.From = new MailAddress("ercheriom@gmail.com");//email pengirim
                 message.To.Add(email);//email penerima (email testing atau string email yg disebut diatas)
                 message.Subject = $"Reset Password Request From NETCoreTester {today.Date}";
                 message.Body = $"Password anda sudah kami reset menjadi {password}";
@@ -91,7 +91,7 @@ namespace ResourcePlacement.Repository.Data
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;
                 smtp.UseDefaultCredentials = false;
-                smtp.Credentials = new NetworkCredential("emailpengirim", "passwordpengirim"); //self explanatory
+                smtp.Credentials = new NetworkCredential("ercheriom@gmail.com", "Vongola_123"); //self explanatory
                 smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
                 smtp.Send(message);
                 return "Email berhasil Dikirim";
