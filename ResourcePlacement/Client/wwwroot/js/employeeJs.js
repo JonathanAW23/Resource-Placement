@@ -53,7 +53,7 @@
                     subsTphone = tPhone.substring(0, 2);
                     /*console.log(data.nik);*/
                     if (subsTphone == "08") {
-                        tPhone = '(' + '+62' + ')' + tPhone.substring(1, 4) + '-' + tPhone.substring(5, 9) + '-' + tPhone.substring(10, 14);
+                        tPhone = '(' + '+62' + ')' + tPhone.substring(1, 4) + '-' + tPhone.substring(4, 8) + '-' + tPhone.substring(8, 14);
                         return tPhone
                     } else {
                         tPhone = '(' + '+62' + ')' + tPhone.substring(0, 3) + '-' + tPhone.substring(4, 8) + '-' + tPhone.substring(9, 13);
@@ -77,7 +77,7 @@
                 "render": function (data, type, row) {
                     var button = `<button id= "btn-detail" class="btn btn-primary" data-toogle="modal" data-target="#GetEmployee" onclick="detail('${row["id"]}')">Details</button>`;
                     
-                    button +='          '+`<button class="btn btn-danger" onclick="del('${row["nik"]}')">Delete</button>`;
+                    button +='          '+`<button class="btn btn-danger" onclick="del('${row["id"]}')">Delete</button>`;
                     return button
                 }
 
@@ -126,7 +126,7 @@
        
         if ($("#validationgaji").val() == "") {
             document.getElementById("validationgaji").className = "form-control is-invalid";
-            $("#msgSalary").html("Salary tidak boleh kosong");
+            $("#msgSalary").html("Salary can't be empty");
         } else {
             document.getElementById("validationgaji").className = "form-control is-valid";
             obj_register.salary = $("#validationgaji").val();
@@ -171,17 +171,6 @@
             obj_register.PhoneNumber= $("#notelp").val();
         }
 
-        if ($("#departmendId").val() == "") {
-            document.getElementById("departmendId").className = "form-control is-invalid";
-            $("#msgDapertment").html("ID Department can't be empty");
-        } else {
-            document.getElementById("notelp").className = "form-control is-valid";
-            obj_register.DepartmentId = $("#departmendId").val();
-        }
-
-
-        console.log(JSON.stringify(obj_register));
-
         $.ajax({
             url: "/Employees/Add",
             method: 'POST',
@@ -189,15 +178,13 @@
             contentType: 'application/x-www-form-urlencoded',
             data: obj_register,
             success: function (data) {
-                $('#register').modal('hide')
+                $('#Register').modal('hide');
                 Swal.fire({
                     title: 'Success Inserting Data!',
                     text: 'Press Any Button to Continue',
                     icon: 'success',
                     confirmButtonText: 'Okay'
                 })
-
-                $('#Register').modal('hide');
                 table.ajax.reload();
             },
             error: function (xhr, status, error) {
@@ -209,8 +196,9 @@
                 }
 
             }
-        })
+        })    
     })
+
     $.ajax({
         url: '/Departments'
     }).done(res => {
@@ -223,9 +211,7 @@
     }).fail(res => console.log(res));
 })
 
-
-
-    
+ 
 function moneyMaker(bilangan) {
     var number_string = bilangan.toString(),
         sisa = number_string.length % 3,
@@ -296,10 +282,10 @@ function detail(id) {
     });
 }
 
-function del(nik) {
-    console.log(nik)
+function del(ID) {
+    console.log(ID)
     Swal.fire({
-        title: `Are you sure that you want to delete this data?`,
+        title: "Are you sure that you want to delete this data?",
         text: "You won't be able to revert this!",
         icon: 'warning',
         showCancelButton: true,
@@ -309,7 +295,7 @@ function del(nik) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "https://localhost:5001/api/Persons/" + nik,
+                url: "/Employees/" + ID,
                 method: 'DELETE'
             }).done((result) => {
                 console.log(result)

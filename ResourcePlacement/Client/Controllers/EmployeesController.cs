@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repository.Data;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
 using System;
@@ -40,6 +41,8 @@ namespace Client.Controllers
             var result = repository.Register(employee);
             return Json(result);
         }
+
+
 
         [HttpGet("Main")]
         public IActionResult Index()

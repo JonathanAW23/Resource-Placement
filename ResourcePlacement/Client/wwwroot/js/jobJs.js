@@ -1,22 +1,22 @@
 ﻿$(document).ready(function () {
 
-    
 
-    var table=$('#datajob').DataTable({
-       "filter": true,
+
+    var table = $('#datajob').DataTable({
+        "filter": true,
         "dom": 'Bfrtip',
         "ajax": {
             "url": "/Jobs",
             "datatype": "json",
             "dataSrc": ""
         },
-        
+
         "columns": [
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, full, meta) {
-                    return meta.row+1;
+                    return meta.row + 1;
                 }
             },
             {
@@ -24,9 +24,8 @@
             },
             {
                 "data": "title"
-                
+
             },
-            
             {
                 "data": "companyId", render: function (toFormat) {
                     var companyName;
@@ -40,8 +39,6 @@
                 "orderable": false,
                 "render": function (data, type, row) {
                     var button = `<button id= "btn-detail" class="btn btn-primary" data-toogle="modal" data-target="#GetJob" onclick="detail('${row["id"]}')">Details</button>`;
-
-                    button += '          ' + `<button class="btn btn-success" onclick="del('${row["id"]}')">Assign</button>`;
                     return button
                 }
             },
@@ -53,36 +50,36 @@
                     return button
                 }
 
-                
-            }
-       ],
 
-       "select": true,
-       "colReorder": true,
-       "buttons": [
-           {
-               extend: 'collection',
-               text: 'Export',
-               buttons: [
-                   'copy',
-                   {
-                       extend: 'excelHtml5',
-                       exportOptions: {
-                           columns: [ 1, 2, 3]
-                       }
-                   },
-                   'csv',
-                   {
-                       extend: 'pdfHtml5',
-                       exportOptions: {
-                           columns: [ 1, 2, 3]
-                       }
-                   },
-                   'print'
-               ]
-           }
-       ]
-   });
+            }
+        ],
+
+        "select": true,
+        "colReorder": true,
+        "buttons": [
+            {
+                extend: 'collection',
+                text: 'Export',
+                buttons: [
+                    'copy',
+                    {
+                        extend: 'excelHtml5',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    },
+                    'csv',
+                    {
+                        extend: 'pdfHtml5',
+                        exportOptions: {
+                            columns: [1, 2, 3]
+                        }
+                    },
+                    'print'
+                ]
+            }
+        ]
+    });
 
     $("#submitdata").click(function (event) {
         event.preventDefault();
@@ -94,7 +91,7 @@
 
         if ($("#title").val() == "") {
             document.getElementById("title").className = "form-control is-invalid";
-            $("#msgT").html("Title can't be empty");
+            $("#msgT").html("Job Title can't be empty");
         } else {
             document.getElementById("title").className = "form-control is-valid";
             obj_register.Title = $("#title").val();
@@ -102,7 +99,7 @@
         }
         if ($("#description").val() == "") {
             document.getElementById("description").className = "form-control is-invalid";
-            $("#msgDescription").html("Title can't be empty");
+            $("#msgDescription").html("Job's description can't be empty");
         } else {
             document.getElementById("description").className = "form-control is-valid";
             obj_register.Description = $("#description").val();
@@ -155,7 +152,6 @@ function company_name(id) {
     $.ajax({
         'async': false,
         'type': "Get",
-        'global': false,
         'url': "/Companies",
         'success': function (result) {
             tmp = result;
@@ -170,6 +166,8 @@ function company_name(id) {
 
     return name;
 }
+
+    
 
 function detail(id) {
     $.ajax({
@@ -234,6 +232,17 @@ function del(nik) {
         }
     })
 }
+
+function assign(id) {
+    $.ajax({
+        url: "/Assigns/assign-form/"
+    }).done((result) => {
+        console.log(id);
+    }).fail((result) => {
+        console.log(result);
+    });
+}
+
 
 
 

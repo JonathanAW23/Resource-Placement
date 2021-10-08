@@ -10,115 +10,125 @@
             <li class="breadcrumb-item active">Job List</li>
         </ol>
     </div>
+
+    <div class="col-md-5"></div>
+    <div class="col-md-1 d-flex align-items-center">
+        <div class="d-flex align-items-center">
+            <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#AddJob">Add Job</button>
+        </div>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6">
+        <a class="btn btn-success btn-lg" asp-controller="Assigns" asp-action="assign-form">Assign Job</a>
+    </div>
     <div class="col-md-5"></div>
     <div class="col-md-1">
-        <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#AddJob">Add Job</button>
     </div>
 </div>
 
 
+    <table class="table" id="datajob">
 
-<table class="table" id="datajob">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">No.</th>
+                <th scope="col">ID</th>
+                <th scope="col">Title</th>
+                <th scope="col">Company</th>
+                <th scope="col">Action</th>
+                <th scope="col">Delete</th>
 
-    <thead class="thead-dark">
-        <tr>
-            <th scope="col">No.</th>
-            <th scope="col">ID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Company</th>
-            <th scope="col">Action</th>
-            <th scope="col">Delete</th>
+            </tr>
+        </thead>
 
-        </tr>
-    </thead>
+        <tbody id="job">
+        </tbody>
+    </table>
 
-    <tbody id="job">
-    </tbody>
-</table>
+    <div class="modal fade" id="GetJob" role="dialog" aria-labelledby="GetJoblabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
 
-<div class="modal fade" id="GetJob" role="dialog" aria-labelledby="GetJoblabel" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="GetJoblabel"></h5>
+                    <button type="button" class="close btn btn-danger" data-bs-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-4">
 
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="GetJoblabel"></h5>
-                <button type="button" class="close btn btn-danger" data-bs-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-4">
+                            <ul>
 
-                        <ul>
+                                <li class="list-group">ID</li>
+                                <li class="list-group">Title</li>
+                                <li class="list-group">Company</li>
+                                <li class="list-group">Description</li>
 
-                            <li class="list-group">ID</li>
-                            <li class="list-group">Title</li>
-                            <li class="list-group">Company</li>
-                            <li class="list-group">Description</li>
+                            </ul>
+                        </div>
+                        <div class="col-8" id="detailjob">
 
-                        </ul>
-                    </div>
-                    <div class="col-8" id="detailjob">
-                       
+                        </div>
+
                     </div>
 
                 </div>
 
-            </div>
-
-            <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-bs-dismiss="modal">Close</button>
+                </div>
             </div>
         </div>
     </div>
-</div>
 
-<div class="modal fade" id="AddJob" tabindex="-1" role="dialog" aria-labelledby="addJob" aria-hidden="true">
-    <div class="modal-dialog modal-lg" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="AddJob">Add Job</h5>
-                <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="formregister" class="need-validations">
-                <div class="modal-body">
-                   
-                    <div class="form-row">
-                        <div class="col">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" placeholder="Developer" required>
-                            <div class="invalid-feedback">
-                                <span id="msgT"></span>
+    <div class="modal fade" id="AddJob" tabindex="-1" role="dialog" aria-labelledby="addJob" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="AddJob">Add Job</h5>
+                    <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form id="formregister" class="need-validations">
+                    <div class="modal-body">
+
+                        <div class="form-row">
+                            <div class="col">
+                                <label for="title">Title</label>
+                                <input type="text" class="form-control" id="title" placeholder="Job Title" required>
+                                <div class="invalid-feedback">
+                                    <span id="msgT"></span>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="company">Company</label>
-                        <select id="company" name="inputcompanyName" class="form-control">
-                            <option selected="">-Choose-</option>
-
-                        </select>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="description">Description</label>
-                        <textarea class="form-control" id="description" rows="3" required></textarea>
-                        <div class="invalid-feedback">
-                            <span id="msgDescription"></span>
+                        <div class="form-group">
+                            <label for="company">Company</label>
+                            <select id="company" name="inputcompanyName" class="form-control">
+                            </select>
                         </div>
-                    </div>
+                        <div class="form-group">
+                            <label for="description">Description</label>
+                            <textarea class="form-control" id="description" rows="3" placeholder="Job Description"required></textarea>
+                            <div class="invalid-feedback">
+                                <span id="msgDescription"></span>
+                            </div>
+                        </div>
 
+                    </div>
+                </form>
+                <div class="modal-footer">
+                    <button id="submitdata" class="btn btn-primary" type="submit">Submit form</button>
                 </div>
-            </form>
-            <div class="modal-footer">
-                <button id="submitdata" class="btn btn-primary" type="submit">Submit form</button>
             </div>
         </div>
     </div>
-</div>
 
-@section Scripts {
-    <script src="~/js/jobJs.js"></script>
-}
+
+
+    @section Scripts {
+        <script src="~/js/jobJs.js"></script>
+    }

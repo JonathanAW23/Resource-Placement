@@ -39,14 +39,16 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token);
+            HttpContext.Session.SetString("Email", email);
 
-            return RedirectToAction("index", "employees");
+            return RedirectToAction("index", "home");
         }
 
         [AllowAnonymous]
         [HttpGet("login-page")]
         public IActionResult Index()
         {
+            //ViewBag.username=null;
             return View();
         }
 

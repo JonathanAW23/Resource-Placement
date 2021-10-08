@@ -80,12 +80,12 @@ namespace ResourcePlacement.Repository.Data
         {
             try
             {
-                DateTime today = DateTime.Now;
+                DateTime today = DateTime.Today;
                 MailMessage message = new MailMessage();
                 SmtpClient smtp = new SmtpClient();
                 message.From = new MailAddress("ercheriom@gmail.com");//email pengirim
                 message.To.Add(email);//email penerima (email testing atau string email yg disebut diatas)
-                message.Subject = $"Reset Password Request From NETCoreTester {today.Date}";
+                message.Subject = $"Reset Password Request From NETCoreTester {today:dd/MM/yyyy}";
                 message.Body = $"Password anda sudah kami reset menjadi {password}";
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com";

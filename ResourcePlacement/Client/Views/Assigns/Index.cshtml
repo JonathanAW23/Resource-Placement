@@ -1,0 +1,240 @@
+﻿@{
+    Layout = "_LayoutAdmin";
+}
+<div class="col-md-6">
+
+    <h1 class="mt-4">Assign Job</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Assign employee on a job</li>
+    </ol>
+</div>
+<div class="box">
+    <div class="box-body">
+        <div class="box-row">
+            <h3 class="mt-4">Employee</h3>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Select employee</li>
+            </ol>
+
+            <form id="formemployee " class="need-validations">
+                <div class="form-row">
+                    <label for="validationCustom03">ID</label>
+                    <div class="col input-group">
+                        <input type="text" class="form-control" id="validationCustom03" placeholder="ID" required readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#selectEmployee">Search</button>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span id="msgID"></span>
+                    </div>
+                </div>
+
+
+                <div class="form-row">
+                    <div class="col">
+                        <label for="inputFirstName">First Name</label>
+                        <input type="text" class="form-control" id="inputFirstName" placeholder="First Name" required readonly>
+                        <div class="invalid-feedback">
+                            <span id="msgFN"></span>
+                        </div>
+                    </div>
+                    <div class="col">
+
+                        <label for="lastName">Last Name</label>
+                        <input type="text" class="form-control" id="lastName" placeholder="Last Name" required readonly>
+                        <div class="invalid-feedback">
+                            <span id="msgLN"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="col">
+                        <label for="validationCustom04">Email</label>
+                        <input type="text" class="form-control" id="validationCustom04" placeholder="Email" required readonly>
+                        <div class="invalid-feedback">
+                            <span id="msgEmail"></span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputGender">Gender</label>
+                    <input type="text" class="form-control" id="inputGender" placeholder="Gender" required readonly>
+                    <div class="invalid-feedback">
+                        <span id="msgGender"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="inputStatus">Status</label>
+                    <input type="text" class="form-control" id="inputStatus" placeholder="Employment Status" required readonly>
+                    <div class="invalid-feedback">
+                        <span id="msgStatus"></span>
+                    </div>
+                </div>
+                <div class-"form-group">
+                    <label for="notelp">Phone</label>
+                    <input type="text" class="form-control" id="notelp" placeholder="Phone Number" required readonly>
+                    <div class="invalid-feedback">
+                        <span id="msgPhone"></span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="department">Department</label>
+                    <input type="text" class="form-control" id="department" placeholder="Department" required readonly>
+                    <div class="invalid-feedback">
+                        <span id="msgDepartment"></span>
+                    </div>
+                </div>
+
+                <label for="validationsalary" hidden>Salary</label>
+                <div class="input-group">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text" id="inputGroupPrepend" hidden>Rp.</span>
+                    </div>
+                    <input type="text" class="form-control" id="validationgaji" placeholder="Salary" aria-describedby="inputGroupPrepend" required hidden>
+                    <div class="invalid-feedback">
+                        <span id="msgSalary"></span>
+                    </div>
+                </div>
+            </form>
+
+        </div>
+        <div class="box-row">
+            <h3 class="mt-4">Job</h3>
+            <ol class="breadcrumb mb-4">
+                <li class="breadcrumb-item active">Select job for the employee</li>
+            </ol>
+            <form id="formjob" class="need-validations">
+
+                <div class="form-row">
+                    <label for="jobID">ID</label>
+                    <div class="col input-group">
+                        <input type="text" class="form-control" id="JobID" placeholder="Id" required readonly>
+                        <div class="input-group-append">
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#SelectJob">Search</button>
+                        </div>
+                    </div>
+                    <div class="invalid-feedback">
+                        <span id="msgID"></span>
+                    </div>
+                </div>
+                <div class="form-row">
+                    <div class="col">
+                        <label for="title">Title</label>
+                        <input type="text" class="form-control" id="title" placeholder="Job Title" required readonly>
+                        <div class="invalid-feedback">
+                            <span id="msgT"></span>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="company">Company</label>
+                    <input type="text" class="form-control" id="company" placeholder="Company" required readonly>
+                    <div class="invalid-feedback">
+                        <span id="msgC"></span>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3" required></textarea>
+                    <div class="invalid-feedback">
+                        <span id="msgDescription"></span>
+                    </div>
+                </div>
+
+
+            </form>
+
+        </div>
+        
+                   
+    </div>
+</div>
+     
+<div class="modal fade" id="SelectJob" role="dialog" aria-labelledby="SelectJoblabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <<div class="modal-header">
+                <h5 class="modal-title" id="selectJob">Select Job</h5>
+                <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" table-responsive>
+                <table class="table" id="datajob">
+
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Title</th>
+                            <th scope="col">Company</th>
+                            <th scope="col">Description</th>>
+                            <th scope="col">Action</th>>
+                            
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="job">
+                    </tbody>
+                </table>
+
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+    </div>
+</div>
+
+</div>
+
+<div class="modal fade" id="selectEmployee" tabindex="-1" role="dialog" aria-labelledby="selectEmployee" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="select Employee">Select Employee</h5>
+                <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+
+            <div class="modal-body table-responsive">
+                <table class="table" id="dataemployee">
+
+                    <thead class="thead-dark">
+                        <tr>
+                            <th scope="col">No.</th>
+                            <th scope="col">ID</th>
+                            <th scope="col">Name</th>
+                            <th scope="col">Gender</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Phone Number</th>
+                            <th scope="col">Action</th>
+
+                        </tr>
+                    </thead>
+
+                    <tbody id="employee">
+                    </tbody>
+                </table>
+
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/js/assignJs.js"></script>
+}
