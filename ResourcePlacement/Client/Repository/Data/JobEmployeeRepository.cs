@@ -1,6 +1,7 @@
 ﻿using Client.Base.Url;
 using Newtonsoft.Json;
 using ResourcePlacement.Model;
+using ResourcePlacement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ using System.Threading.Tasks;
 
 namespace Client.Repository.Data
 {
-    public class JobRepository:GeneralRepository<Job,int>
+    public class JobEmployeeRepository:GeneralRepository<JobEmployee,string>
     {
         private readonly Address address;
         private readonly string request;
         //private readonly IHttpContextAccessor _contextAccessor;
         private readonly HttpClient httpClient;
 
-        public JobRepository(Address address, string request = "Jobs/") : base(address, request)
+        public JobEmployeeRepository(Address address, string request = "JobEmployees/") : base(address, request)
         {
             this.address = address;
             this.request = request;
@@ -29,15 +30,22 @@ namespace Client.Repository.Data
             //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
 
-        public async Task<JobEmployee> GetJob(int ID)
+        public async Task<List<JobEmployeeVM>> GetJobEmployee()
         {
-            JobEmployee jobEmployee = new JobEmployee();
-            using (var response = await httpClient.GetAsync(request + ID))
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync(request + "GetJobEmployee"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                jobEmployee = JsonConvert.DeserializeObject<JobEmployee>(apiResponse);
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
             }
-            return jobEmployee;
+            return entities;
+        }
+
+        public string Register(JobEmployee jobEmployee)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(jobEmployee), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(request + "InsertAssignmentInvitation", content).Result.Content.ReadAsStringAsync().Result;
+            return result;
         }
 
     }

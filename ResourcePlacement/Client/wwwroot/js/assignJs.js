@@ -105,6 +105,8 @@
         $('#validationgaji').val(salary);
        
         $('#selectEmployee').modal('hide');
+
+
     })
 
 
@@ -179,6 +181,44 @@
         
 
         $('#SelectJob').modal('hide');
+    })
+
+    $("#assignment").click(function (event) {
+        event.preventDefault();
+        var d = new Date();
+        var today = `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+        var obj_assign = new Object();
+        obj_assign.EmployeeId = $("#validationCustom03").val();
+        obj_assign.JobId = $("#JobID").val();
+        obj_assign.Status = parseInt('1');
+        obj_assign.RecordDate = today;
+        obj_assign.InterviewDate = $("#InterviewDate").val();
+        obj_assign.InterviewTime = $("#InterviewTime").val().toString();
+        obj_assign.Interviewer = $("#Interviewer").val();
+        console.log(today);
+        console.log(JSON.stringify(obj_assign));
+
+        $.ajax({
+            url: "/Assigns/assign",
+            method: 'POST',
+            dataType: 'json',
+            contentType: 'application/x-www-form-urlencoded',
+            data: obj_assign,
+            success: function (data) {
+                
+                Swal.fire({
+                    title: 'Success Inserting Data!',
+                    text: 'Press Any Button to Continue',
+                    icon: 'success',
+                    confirmButtonText: 'Okay'
+                })
+               
+            },
+            error: function (xhr, status, error) {
+                console.log(xhr.responseJSON.errors);
+
+            }
+        })
     })
 })
 

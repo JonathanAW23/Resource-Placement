@@ -45,6 +45,7 @@ namespace Client
             services.AddScoped<AccountRepository>();
             services.AddScoped<JobRepository>();
             services.AddScoped<CompanyRepository>();
+            services.AddScoped<JobEmployeeRepository>();
             services.AddScoped<Address>();
 
             services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(options =>

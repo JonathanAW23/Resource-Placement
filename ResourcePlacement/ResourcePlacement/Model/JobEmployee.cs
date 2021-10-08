@@ -18,6 +18,8 @@ namespace ResourcePlacement.Model
         public int Status { get; set; }
         [Required]
         public DateTime RecordDate { get; set; }
+        public DateTime InterviewDate { get; set; }
+        public string InterviewTime { get; set; }
         public string Interviewer { get; set; }
         public int InterviewResult { get; set; }
 

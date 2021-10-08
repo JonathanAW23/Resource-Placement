@@ -29,12 +29,10 @@ namespace ResourcePlacement.Base
             {
                 repository.Insert(entity);
                 return Ok("Sukses Insert Data");
-                //return StatusCode((int)HttpStatusCode.OK, new { status = (int)HttpStatusCode.OK, data = "Sukses Insert Data" });
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
-                //return StatusCode((int)HttpStatusCode.InternalServerError, new { Status = (int)HttpStatusCode.InternalServerError, Message = e.Message });
             }
 
         }
