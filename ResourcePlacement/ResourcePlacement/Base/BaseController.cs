@@ -73,7 +73,7 @@ namespace ResourcePlacement.Base
 
         [HttpPut]
 
-        public ActionResult update(Entity entity)
+        public ActionResult Update(Entity entity)
         {
             try
             {

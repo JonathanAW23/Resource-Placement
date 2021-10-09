@@ -1,9 +1,9 @@
 ﻿$(document).ready(function () {
-      $('#dataemployee').DataTable({
+    $('#datajobemployee').DataTable({
         "filter": true,
         
         "ajax": {
-            "url": "/Employees/GetEmployee",
+            "url": "/JobEmployees",
             "datatype": "json",
             "dataSrc": ""
         },
@@ -17,56 +17,42 @@
                 }
             },
             {
-                "data": "id"
+                "data": "jobId"
             },
             {
-                "data": null,
-                "render": function (data, type, row) {
+                "data": "jobId",
+            },
 
-                    return row["firstName"] + " " + row["lastName"];
-                },
+            {
+                "data": "employeeID",
                 "autoWidth": true
             },
-
             {
-                "data": "gender", render: function (toFormat) {
-                    var gender;
+                "data": "emmployeeID",
+                "autoWidth": true
+            },
+            {
+                "data": "status", render: function (toFormat) {
+                    var status;
                     console.log(toFormat)
-                    if (toFormat === 0) {
-                        gender = "Male"
-                    } else {
-                        gender = "Female"
+                    if (toFormat === 1) {
+                        status = "Invited"
+                    } else if(toFormat==2){
+                        status="Interview"
                     }
-                    return gender;
-                },
-                "orderable": false,
-                "autoWidth": true
-            },
-            {
-                "data": "email",
-                "autoWidth": true
-            },
-            {
-                data: "phoneNumber", render: function (toFormat) {
-                    var tPhone;
-                    tPhone = toFormat.toString();
-                    subsTphone = tPhone.substring(0, 2);
-                    if (subsTphone == "08") {
-                        tPhone = '(' + '+62' + ')' + tPhone.substring(1, 4) + '-' + tPhone.substring(4, 8) + '-' + tPhone.substring(8, 14);
-                        return tPhone
-                    } else {
-                        tPhone = '(' + '+62' + ')' + tPhone.substring(0, 3) + '-' + tPhone.substring(4, 8) + '-' + tPhone.substring(9, 13);
-                        return tPhone
+                    else {
+                        status = "Job"
                     }
+                    return status;
                 },
-                "autoWidth": true
+                "orderable": false
             },
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row) {
                     var button = `<button class="btn btn-success" id="select"
-                                    data-id= ${row["id"]} data-email= ${row["email"]}
+                                    data-employeeId= ${row["id"]} data-email= ${row["email"]}
                                     data-gender= ${row["gender"]}
                                     data-status= ${row["employmentStatus"]}
                                     data-phone= ${row["phoneNumber"]}
@@ -109,61 +95,6 @@
 
     })
 
-
-    var job=$('#datajob').DataTable({
-        "filter": true,
-
-        "ajax": {
-            "url": "/Jobs",
-            "datatype": "json",
-            "dataSrc": ""
-        },
-
-        "columns": [
-            {
-                "data": null,
-                "orderable": false,
-                "render": function (data, type, full, meta) {
-                    return meta.row + 1;
-                }
-            },
-            {
-                "data": "id"
-            },
-            {
-                "data": "title",
-                "autoWidth": true
-            },
-
-            {
-                "data": "companyId", render: function (toFormat) {
-                    var companyName;
-                    companyName = company_name(toFormat);
-                    return companyName;
-                },
-                "orderable": false
-            },
-            {
-                "data": "description",
-                "autoWidth": true
-            },
-            {
-                "data": null,
-                "orderable": false,
-                "render": function (data, type, row) {
-                    var button = `<a class="btn btn-success" id="selectJob"
-                                    data-id= "${row["id"]}" data-title= "${row["title"]}"
-                                    data-company= ${row["companyId"]}
-                                    data-description= "${row["description"]}">Select</a>`;
-                    return button
-                }
-
-
-            }
-        ]
-    });
-
-
     $(document).on('click', '#selectJob', function () {
         var job_id = $(this).data('id');
         var title = $(this).data('title');
@@ -183,20 +114,20 @@
         $('#SelectJob').modal('hide');
     })
 
-    $("#assignment").click(function (event) {
+    $("#inverview").click(function (event) {
         event.preventDefault();
         var d = new Date();
         var today = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T${d.getHours()}:${d.getMinutes()}:${d.getSeconds()}`;
         var obj_assign = new Object();
-        obj_assign.EmployeeId = $("#validationCustom03").val();
-        obj_assign.JobId = $("#JobID").val();
-        obj_assign.Status = parseInt('1');
-        obj_assign.RecordDate = today;
-        obj_assign.InterviewDate = $("#InterviewDate").val();
-        obj_assign.InterviewTime = $("#InterviewTime").val().toString();
-        obj_assign.Interviewer = $("#Interviewer").val();
+        obj_interview.EmployeeId = $("#validationCustom03").val();
+        obj_interview.JobId = $("#JobID").val();
+        obj_interview.Status = parseInt('1');
+        obj_interview.RecordDate = today;
+        obj_interview.InterviewDate = $("#InterviewDate").val();
+        obj_interview.InterviewTime = $("#InterviewTime").val().toString();
+        obj_interview.Interviewer = $("#Interviewer").val();
         console.log(today);
-        console.log(JSON.stringify(obj_assign));
+        console.log(JSON.stringify(obj_interview));
 
         $.ajax({
             url: "/Assigns/assign",
@@ -223,18 +154,6 @@
 })
 
  
-function moneyMaker(bilangan) {
-    var number_string = bilangan.toString(),
-        sisa = number_string.length % 3,
-        rupiah = number_string.substr(0, sisa),
-        ribuan = number_string.substr(sisa).match(/\d{3}/g);
-
-    if (ribuan) {
-        separator = sisa ? '.' : '';
-        rupiah += separator + ribuan.join('.');
-    }
-    return rupiah;
-}
 function company_name(id) {
     var tmp = null;
     $.ajax({

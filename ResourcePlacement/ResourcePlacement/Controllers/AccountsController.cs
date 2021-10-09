@@ -40,9 +40,11 @@ namespace ResourcePlacement.Controllers
             else if (accountRepository.CheckPassword(Id, loginVM.Password))
             {
                 string[] roles = accountRepository.GetRole(Id);
-                var claims = new List<Claim>();
-                claims.Add(new Claim("Id", Id));
-                claims.Add(new Claim("email", loginVM.Email));
+                var claims = new List<Claim>
+                {
+                    new Claim("Id", Id),
+                    new Claim("email", loginVM.Email)
+                };
                 foreach (string role in roles)
                 {
                     claims.Add(new Claim("roles", role));
@@ -73,10 +75,12 @@ namespace ResourcePlacement.Controllers
             {
                 string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
                 string password = accountRepository.ResetPasswordGenerator();
-                Account account = new Account();
-                account.Id = Id;
-                account.Password = BCrypt.Net.BCrypt.HashPassword(password, salt);
-                update(account);
+                Account account = new Account
+                {
+                    Id = Id,
+                    Password = BCrypt.Net.BCrypt.HashPassword(password, salt)
+                };
+                Update(account);
                 var sent = accountRepository.Email(password, forgotPasswordVM.Email);
                 return Ok(sent);
             }
@@ -96,10 +100,12 @@ namespace ResourcePlacement.Controllers
                 if (changePasswordVM.NewPassword == changePasswordVM.NewPasswordConfirm)
                 {
                     string salt = BCrypt.Net.BCrypt.GenerateSalt(12);
-                    Account account = new Account();
-                    account.Id = Id;
-                    account.Password = BCrypt.Net.BCrypt.HashPassword(changePasswordVM.NewPassword, salt);
-                    update(account);
+                    Account account = new Account
+                    {
+                        Id = Id,
+                        Password = BCrypt.Net.BCrypt.HashPassword(changePasswordVM.NewPassword, salt)
+                    };
+                    Update(account);
                     return Ok("Password changed!");
                 }
                 else 

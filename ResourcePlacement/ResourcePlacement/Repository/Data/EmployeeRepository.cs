@@ -38,7 +38,7 @@ namespace ResourcePlacement.Repository.Data
 
             AccountRole accountRole = new AccountRole();
             accountRole.AccountId = hrvm.Id;
-            accountRole.RoleId = 1;
+            accountRole.RoleId = 2;
             myContext.AccountRoles.Add(accountRole);
 
             var insert = myContext.SaveChanges();

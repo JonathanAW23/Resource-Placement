@@ -31,9 +31,9 @@
                 <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false"><i class="fas fa-user fa-fw"></i></a>
                 <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
                     <li>
-                        <a class="dropdown-item" href="#!">
+                        <a class="dropdown-item" asp-controller="ChangePasswords" asp-action="change-page">
                             <i class="fas fa-cogs fa-sm fa-fw mr-2 text-gray-400"></i>
-                            Settings
+                            Change Password
                         </a>
                     </li>
                     @*<li><a class="dropdown-item" href="#!">Activity Log</a></li>*@
@@ -83,15 +83,16 @@
                             </nav>
                         </div>
 
-                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseJob" aria-expanded="false" aria-controls="collapseLayouts">
+                        <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#pagesCollapseAssignment" aria-expanded="false" aria-controls="collapseLayouts">
                             <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                             Assigment
                             <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
                         </a>
-                        <div class="collapse" id="pagesCollapseJob" aria-labelledby="heading" data-bs-parent="#sidenavAccordion">
+                        <div class="collapse" id="pagesCollapseAssignment" aria-labelledby="heading" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" asp-controller="JobEmployees" asp-action="Main">Invitation</a>
-                                @*<a class="nav-link" href="#">HR List</a>*@
+                                <a class="nav-link" asp-controller="JEInterviews" asp-action="Main">Interview</a>
+                                <a class="nav-link" asp-controller="JEInterviews" asp-action="Main">Result</a>
                             </nav>
                         </div>
 
@@ -155,18 +156,6 @@
 
                 </div>
             </main>
-            <footer class="py-4 bg-light mt-auto">
-                <div class="container-fluid px-4">
-                    <div class="d-flex align-items-center justify-content-between small">
-                        <div class="text-muted">Copyright &copy; Your Website 2021</div>
-                        <div>
-                            <a href="#">Privacy Policy</a>
-                            &middot;
-                            <a href="#">Terms &amp; Conditions</a>
-                        </div>
-                    </div>
-                </div>
-            </footer>
         </div>
     </div>
 

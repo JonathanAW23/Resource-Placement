@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    $('#dataJobEmployee').DataTable({
+    $('#dataJobInterview').DataTable({
         "filter": true,
         "dom": 'Bfrtip',
         "ajax": {
@@ -28,10 +28,24 @@
             },
             {
                 "data": "fullName",
-               
+
                 "autoWidth": true
             },
-            
+            {
+                "data": "interviewer",
+
+                "autoWidth": true
+            },
+            {
+                "data": "interviewDate",
+
+                "autoWidth": true
+            },
+            {
+                "data": "intervieweTime",
+
+                "autoWidth": true
+            },
             {
                 "data": "status", render: function (toFormat) {
                     var status;
@@ -41,7 +55,7 @@
                     } else if (toFormat === 2) {
                         status = "Interviewed"
                     } else {
-                        status="Job"
+                        status = "Job"
                     }
                     return status;
                 },

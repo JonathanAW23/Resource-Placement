@@ -15,6 +15,10 @@ namespace ResourcePlacement.ViewModel
         public int Status { get; set; }
         public string FullName { get; set; }
         public DateTime InterviewDate { get; set; }
+        public DateTime RecordDate { get; set; }
+        public string InterviewTime { get; set; }
+        public string Interviewer { get; set; }
+        public int InterviewResult { get; set; }
 
 
     }

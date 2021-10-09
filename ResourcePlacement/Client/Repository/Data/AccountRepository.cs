@@ -37,5 +37,12 @@ namespace Client.Repository.Data
             return result;
         }
 
+        public string ChangePassword(ChangePasswordVM changePasswordVM)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(changePasswordVM), Encoding.UTF8, "application/json");
+            var result = httpClient.PutAsync(request + "ChangePassword", content).Result.Content.ReadAsStringAsync().Result;
+            return result;
+        }
+
     }
 }

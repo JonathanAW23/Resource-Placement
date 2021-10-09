@@ -12,11 +12,13 @@ namespace ResourcePlacement.Model
     public class JobEmployee
     {
         [Key]
+        public int Id { get; set; }
+        [Required]
         public string EmployeeId { get; set; }
+        [Required]
         public int JobId { get; set; }
         [Required]
         public int Status { get; set; }
-        [Required]
         public DateTime RecordDate { get; set; }
         public DateTime InterviewDate { get; set; }
         public string InterviewTime { get; set; }

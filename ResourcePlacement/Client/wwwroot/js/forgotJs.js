@@ -35,6 +35,9 @@
                         text: 'Press Any Button to Continue',
                         icon: 'success',
                         confirmButtonText: 'Okay'
+                    }).then(function () {
+                        window.location = "/logins/login-page";
+                        /*          document.location = Url.Action("login-page","Logins");*/
                     })
                 },
                 error: function (xhr, status, error) {
@@ -47,7 +50,9 @@
 
                 }
             })
+
         }
+      
 
     });
 

@@ -33,8 +33,13 @@ namespace ResourcePlacement.Repository.Data
                                     TitleJob = j.Title,
                                     Company = c.Name,
                                     Status = je.Status,
-
+                                    InterviewDate = je.InterviewDate,
+                                    InterviewTime = je.InterviewTime,
+                                    Interviewer = je.Interviewer,
+                                    RecordDate = je.RecordDate,
+                                    InterviewResult = je.InterviewResult
                                 }).ToList();
+
             if (getJobEmployeeVMs.Count == 0)
             {
                 return null;

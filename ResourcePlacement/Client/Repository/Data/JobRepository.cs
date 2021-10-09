@@ -29,15 +29,15 @@ namespace Client.Repository.Data
             //httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("bearer", _contextAccessor.HttpContext.Session.GetString("JWToken"));
         }
 
-        public async Task<JobEmployee> GetJob(int ID)
+        public async Task<Job> GetJob(int ID)
         {
-            JobEmployee jobEmployee = new JobEmployee();
+            Job job = new Job();
             using (var response = await httpClient.GetAsync(request + ID))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
-                jobEmployee = JsonConvert.DeserializeObject<JobEmployee>(apiResponse);
+                job = JsonConvert.DeserializeObject<Job>(apiResponse);
             }
-            return jobEmployee;
+            return job;
         }
 
     }

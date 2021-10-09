@@ -19,8 +19,8 @@ namespace ResourcePlacement.Context
             modelBuilder.Entity<AccountRole>()
                 .HasKey(ar => new { ar.AccountId, ar.RoleId });
 
-            modelBuilder.Entity<JobEmployee>()
-                .HasKey(je => new { je.EmployeeId, je.JobId });
+            //modelBuilder.Entity<JobEmployee>()
+            //    .HasKey(je => new { je.EmployeeId, je.JobId });
 
             modelBuilder.Entity<JobHistory>()
                 .HasKey(jh => new { jh.EmployeeId, jh.JobId });
@@ -50,11 +50,13 @@ namespace ResourcePlacement.Context
 
             modelBuilder.Entity<Employee>()
                .HasMany(e => e.JobEmployees)
-               .WithOne(je => je.Employee);
+               .WithOne(je => je.Employee)
+               .HasForeignKey(je => je.EmployeeId);
 
             modelBuilder.Entity<Job>()
                 .HasMany(j => j.JobEmployees)
-                .WithOne(je => je.Job);
+                .WithOne(je => je.Job)
+                .HasForeignKey(je => je.JobId);
 
             modelBuilder.Entity<Employee>()
                .HasMany(e => e.JobHistories)
