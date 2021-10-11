@@ -18,6 +18,33 @@ namespace ResourcePlacement.Repository.Data
         {
             this.myContext = myContext;
         }
+        public int InsertJEJHAccepted(JobEmployeeVM jobEmployeeVM)
+        {
+            JobEmployee jobEmployee = new JobEmployee
+            {
+                EmployeeId = jobEmployeeVM.IdEmployee,
+                JobId = jobEmployeeVM.IdJob,
+                Status = jobEmployeeVM.Status,
+                RecordDate = jobEmployeeVM.RecordDate,
+                InterviewDate = jobEmployeeVM.InterviewDate,
+                InterviewTime = jobEmployeeVM.InterviewTime,
+                Interviewer = jobEmployeeVM.Interviewer,
+                InterviewResult = jobEmployeeVM.InterviewResult
+            };
+            myContext.JobEmployees.Add(jobEmployee);
+
+            JobHistory jobHistory = new JobHistory
+            {
+                EmployeeId = jobEmployeeVM.IdEmployee,
+                JobId = jobEmployeeVM.IdJob,
+                StartDate = jobEmployeeVM.StartDate,
+                EndDate = jobEmployeeVM.EndDate
+            };
+            myContext.JobHistories.Add(jobHistory);
+
+            var insert = myContext.SaveChanges();
+            return insert;
+        }
 
         public IEnumerable<JobEmployeeVM> GetJobEmployeeVM()
         {
@@ -46,6 +73,93 @@ namespace ResourcePlacement.Repository.Data
             }
             return getJobEmployeeVMs;
         }
+
+        public IEnumerable<JobEmployeeVM> GetJobEmployeeInvitedVM()
+        {
+            var getJobEmployeeVMs = (from e in myContext.Employees
+                                     join je in myContext.JobEmployees on e.Id equals je.EmployeeId
+                                     join j in myContext.Jobs on je.JobId equals j.Id
+                                     join c in myContext.Companies on j.CompanyId equals c.Id
+                                     where je.Status == 1
+                                     select new JobEmployeeVM
+                                     {
+                                         IdEmployee = e.Id,
+                                         FullName = e.FirstName + " " + e.LastName,
+                                         IdJob = j.Id,
+                                         TitleJob = j.Title,
+                                         Company = c.Name,
+                                         Status = je.Status,
+                                         InterviewDate = je.InterviewDate,
+                                         InterviewTime = je.InterviewTime,
+                                         Interviewer = je.Interviewer,
+                                         RecordDate = je.RecordDate,
+                                         InterviewResult = je.InterviewResult
+                                     }).ToList();
+
+            if (getJobEmployeeVMs.Count == 0)
+            {
+                return null;
+            }
+            return getJobEmployeeVMs;
+        }
+        public IEnumerable<JobEmployeeVM> GetJobEmployeeInterviewVM()
+        {
+            var getJobEmployeeVMs = (from e in myContext.Employees
+                                     join je in myContext.JobEmployees on e.Id equals je.EmployeeId
+                                     join j in myContext.Jobs on je.JobId equals j.Id
+                                     join c in myContext.Companies on j.CompanyId equals c.Id
+                                     where je.Status == 2
+                                     select new JobEmployeeVM
+                                     {
+                                         IdEmployee = e.Id,
+                                         FullName = e.FirstName + " " + e.LastName,
+                                         IdJob = j.Id,
+                                         TitleJob = j.Title,
+                                         Company = c.Name,
+                                         Status = je.Status,
+                                         InterviewDate = je.InterviewDate,
+                                         InterviewTime = je.InterviewTime,
+                                         Interviewer = je.Interviewer,
+                                         RecordDate = je.RecordDate,
+                                         InterviewResult = je.InterviewResult
+                                     }).ToList();
+
+            if (getJobEmployeeVMs.Count == 0)
+            {
+                return null;
+            }
+            return getJobEmployeeVMs;
+        }
+        public IEnumerable<JobEmployeeVM> GetJobEmployeeFinalizedVM()
+        {
+            var getJobEmployeeVMs = (from e in myContext.Employees
+                                     join je in myContext.JobEmployees on e.Id equals je.EmployeeId
+                                     join j in myContext.Jobs on je.JobId equals j.Id
+                                     join c in myContext.Companies on j.CompanyId equals c.Id
+                                     where je.Status == 3
+                                     select new JobEmployeeVM
+                                     {
+                                         IdEmployee = e.Id,
+                                         FullName = e.FirstName + " " + e.LastName,
+                                         IdJob = j.Id,
+                                         TitleJob = j.Title,
+                                         Company = c.Name,
+                                         Status = je.Status,
+                                         InterviewDate = je.InterviewDate,
+                                         InterviewTime = je.InterviewTime,
+                                         Interviewer = je.Interviewer,
+                                         RecordDate = je.RecordDate,
+                                         InterviewResult = je.InterviewResult
+                                     }).ToList();
+
+            if (getJobEmployeeVMs.Count == 0)
+            {
+                return null;
+            }
+            return getJobEmployeeVMs;
+        }
+
+
         public string GetEmail(string Id)
         {
             var getEmail = (from e in myContext.Employees where e.Id == Id select new Employee { Email = e.Email }).ToList();

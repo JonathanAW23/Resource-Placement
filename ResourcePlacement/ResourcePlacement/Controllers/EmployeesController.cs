@@ -21,6 +21,62 @@ namespace ResourcePlacement.Controllers
             this.employeeRepository = repository;
         }
 
+        [HttpGet("GetEmployeeOnly")]
+        public ActionResult GetEmployeeOnly()
+        {
+            var EmployeesOnly = employeeRepository.GetEmployeeOnly();
+            if (EmployeesOnly == null)
+            {
+                return NotFound(EmployeesOnly);
+            }
+            else
+            {
+                return Ok(EmployeesOnly);
+            }
+        }
+
+        [HttpGet("GetHROnly")]
+        public ActionResult GetHROnly()
+        {
+            var HROnly = employeeRepository.GetHROnly();
+            if (HROnly == null)
+            {
+                return NotFound(HROnly);
+            }
+            else
+            {
+                return Ok(HROnly);
+            }
+        }
+
+        [HttpGet("GetEmployeeJobHistories/{Id}")]
+        public ActionResult GetEmployeeJobHistories(string Id)
+        {
+            var EmployeeJH = employeeRepository.GetEmployeeJobHistories(Id);
+            if (EmployeeJH == null)
+            {
+                return NotFound(EmployeeJH);
+            }
+            else
+            {
+                return Ok(EmployeeJH);
+            }
+        }
+
+        [HttpGet("GetEmployeeInterviewHistories/{Id}")]
+        public ActionResult GetEmployeeInterviewHistories(string Id)
+        {
+            var EmployeeIH = employeeRepository.GetEmployeeJobInterview(Id);
+            if (EmployeeIH == null)
+            {
+                return NotFound(EmployeeIH);
+            }
+            else
+            {
+                return Ok(EmployeeIH);
+            }
+        }
+
         [HttpPost("InsertHR")]
         public ActionResult InsertHR(HRVM hrvm)
         {

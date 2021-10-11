@@ -19,6 +19,8 @@ namespace ResourcePlacement.ViewModel
         public string InterviewTime { get; set; }
         public string Interviewer { get; set; }
         public int InterviewResult { get; set; }
+        public DateTime StartDate { get; set; }
+        public DateTime EndDate { get; set; }
 
 
     }

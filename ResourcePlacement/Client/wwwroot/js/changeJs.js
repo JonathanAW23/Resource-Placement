@@ -83,7 +83,7 @@ $("#btnChange").click(function (event) {
             data: obj_change,
             beforeSend: function () {
                 Swal.fire({
-                    title: "Checking...",
+                    title: 'Now loading',
                     text: "Please wait",
                     imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
                     imageWidth: 200,

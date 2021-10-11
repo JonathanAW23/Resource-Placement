@@ -72,19 +72,19 @@
                     <div class="invalid-feedback">
                         <span id="msgC"></span>
                     </div>
-                </div>
+                </div>x
                 <div class="form-group" hidden>
-                <label for="description">Description</label>
-                <textarea class="form-control" id="description" rows="3" required></textarea>
-                <div class="invalid-feedback">
-                    <span id="msgDescription"></span>
+                    <label for="description">Description</label>
+                    <textarea class="form-control" id="description" rows="3" required></textarea>
+                    <div class="invalid-feedback">
+                        <span id="msgDescription"></span>
+                    </div>
                 </div>
+
+
+            </form>
+
         </div>
-
-
-        </form>
-
-    </div>
         <div class="box-row">
             <h3 class="mt-4">Interview</h3>
             <ol class="breadcrumb mb-4">
@@ -95,32 +95,36 @@
                 <div class="form-group">
                     <label for="InterviewDate">Interview Date</label>
                     <div>
-                        <input type="date" id="InterviewDate" class="form-control" name="trip-start" min="2021-01-01" max="2041-12-31" required>
-                        <div class="invalid-feedback">
-                            <span id="msgInterviewDate"></span>
-                        </div>
+                        <input type="date" id="InterviewDate" class="form-control" min="2021-01-01" max="2041-12-31" required readonly>
                     </div>
                 </div>
-
                 <div class="form-row">
-                    <label for="InterviewTime">Choose a time for Interview</label>
+                        <label for="InterviewTime">Choose a time for Interview</label>
                     <div class="col-md-2 mb-3">
-                        <input type="time" id="InterviewTime" class="form-control" name="appt" required>
+                        <input type="time" id="InterviewTime" class="form-control" name="appt" required readonly>
+                    </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="Interviewer">User</label>
+                        <input type="text" class="form-control" id="Interviewer" placeholder="User" required readonly>
                         <div class="invalid-feedback">
-                            <span id="msgInterviewTime"></span>
+                            <span id="msgC"></span>
                         </div>
                     </div>
-                </div>
 
-                <div class="form-group">
-
-                    <label for="Interviewer">User</label>
-                    <input type="text" id="Interviewer" class="form-control" placeholder="User" required>
-                    <div class="invalid-feedback">
-                        <span id="msgUser"></span>
+                    <div class="form-group">
+                        <label for="result">Interview Result</label>
+                        <select id="result" class="form-control custom-select" required>
+                            <option selected="">-Choose-</option>
+                            <option value="0">Failed</option>
+                            <option value="1">Success</option>
+                        </select>
+                        <div class="valid-feedback">
+                            <span id="msgResult"></span>
+                        </div>
                     </div>
-                </div>
-            </form>
+</form>
         </div>
     </div>
 </div>
@@ -176,5 +180,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/interviewJs.js"></script>
+    <script src="~/js/finalizedJs.js"></script>
 }

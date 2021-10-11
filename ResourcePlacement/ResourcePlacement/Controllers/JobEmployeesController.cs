@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Base;
 using ResourcePlacement.Model;
 using ResourcePlacement.Repository.Data;
+using ResourcePlacement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,11 +21,68 @@ namespace ResourcePlacement.Controllers
             this.jobEmployeeRepository = repository;
         }
 
+        [HttpPost("InsertJEFinalized")]
+        public ActionResult InsertJEFinalized(JobEmployeeVM jobEmployeeVM)
+        {
+            try
+            {
+                jobEmployeeRepository.InsertJEJHAccepted(jobEmployeeVM);
+                return Ok("Sukses Insert Data");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
 
         [HttpGet("GetJobEmployee")]
         public ActionResult GetJobEmployeeVM()
         {
             var jobEmployees = jobEmployeeRepository.GetJobEmployeeVM();
+            if (jobEmployees == null)
+            {
+                return NotFound(jobEmployees);
+            }
+            else
+            {
+                return Ok(jobEmployees);
+            }
+        }
+
+        [HttpGet("GetJobEmployeeInvited")]
+        public ActionResult GetJobEmployeeInvitedVM()
+        {
+            var jobEmployees = jobEmployeeRepository.GetJobEmployeeInvitedVM();
+            if (jobEmployees == null)
+            {
+                return NotFound(jobEmployees);
+            }
+            else
+            {
+                return Ok(jobEmployees);
+            }
+        }
+
+        [HttpGet("GetJobEmployeeInterview")]
+        public ActionResult GetJobEmployeeInterviewVM()
+        {
+            var jobEmployees = jobEmployeeRepository.GetJobEmployeeInterviewVM();
+            if (jobEmployees == null)
+            {
+                return NotFound(jobEmployees);
+            }
+            else
+            {
+                return Ok(jobEmployees);
+            }
+        }
+
+        [HttpGet("GetJobEmployeeFinalized")]
+        public ActionResult GetJobEmployeeFinalizedVM()
+        {
+            var jobEmployees = jobEmployeeRepository.GetJobEmployeeFinalizedVM();
             if (jobEmployees == null)
             {
                 return NotFound(jobEmployees);

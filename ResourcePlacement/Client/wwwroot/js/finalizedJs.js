@@ -98,12 +98,13 @@
         obj_interview.InterviewDate = $("#InterviewDate").val()+'T'+$("#InterviewTime").val();
         obj_interview.InterviewTime = $("#InterviewTime").val().toString();
         obj_interview.Interviewer = $("#Interviewer").val();
+        obj_interview.InterviewResult = $("#result").val();
         
         console.log(JSON.stringify(today));
         console.log(JSON.stringify(obj_interview));
 
         $.ajax({
-            url: "/Interviews/interview",
+            url: "url to input data",
             method: 'POST',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded',

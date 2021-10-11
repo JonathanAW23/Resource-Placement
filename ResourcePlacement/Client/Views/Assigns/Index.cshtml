@@ -1,7 +1,7 @@
 ﻿@{
     Layout = "_LayoutAdmin";
 }
-<div class="col-md-6">x
+<div class="col-md-6">
 
     <h1 class="mt-4">Assign Job</h1>
     <ol class="breadcrumb mb-4">
@@ -118,7 +118,7 @@
                         </div>
                     </div>
                     <div class="invalid-feedback">
-                        <span id="msgID"></span>
+                        <span id="msgJobID"></span>
                     </div>
                 </div>
                 <div class="form-row">
@@ -153,24 +153,34 @@
             <ol class="breadcrumb mb-4">
                 <li class="breadcrumb-item active">Interview Detail</li>
             </ol>
-            <form id="formjob" class="need-validations">
+            <form id="forminterview" class="need-validations">
 
                 <div class="form-group">
                     <label for="InterviewDate">Interview Date</label>
                     <div>
-                        <input type="date" id="InterviewDate" name="trip-start" min="2021-01-01" max="2041-12-31" required>
+                        <input type="date" id="InterviewDate" class="form-control" name="trip-start" min="2021-01-01" max="2041-12-31" required>
+                        <div class="invalid-feedback">
+                            <span id="msgInterviewDate"></span>
+                        </div>
                     </div>
                 </div>
-                <div class="form-group">
-                    <label for="InterviewTime">Choose a time for Interview</label>
-                    <input type="time" id="InterviewTime" name="appt" required>
-                </div>
+                
+                <div class="form-row">
+                        <label for="InterviewTime">Choose a time for Interview</label>
+                        <div class="col-md-2 mb-3">
+                            <input type="time" id="InterviewTime" class="form-control" name="appt" required>
+                            <div class="invalid-feedback">
+                                <span id="msgInterviewTime"></span>
+                            </div>
+                        </div>
+                    </div>
 
                 <div class="form-group">
+
                     <label for="Interviewer">User</label>
-                    <input type="text" class="form-control" id="Interviewer" placeholder="User" required>
+                    <input type="text"  id="Interviewer" class="form-control"placeholder="User" required>
                     <div class="invalid-feedback">
-                        <span id="msgC"></span>
+                        <span id="msgUser"></span>
                     </div>
                 </div>
             </form>
