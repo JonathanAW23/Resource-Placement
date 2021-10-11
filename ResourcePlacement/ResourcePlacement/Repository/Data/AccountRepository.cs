@@ -1,5 +1,6 @@
 ﻿using ResourcePlacement.Context;
 using ResourcePlacement.Model;
+using ResourcePlacement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -67,6 +68,24 @@ namespace ResourcePlacement.Repository.Data
                 roles[i] = getRole[i].Name;
             }
             return roles;
+        }
+
+        public string GetName(string Id)
+        {
+            var getName = (from e in myContext.Employees
+                           where e.Id == Id
+                           select new JobEmployeeVM
+                           {
+                               FullName = e.FirstName + " " + e.LastName
+                           }).ToList();
+            if (getName.Count == 0)
+            {
+                return null;
+            }
+            else
+            {
+                return getName[0].FullName;
+            }
         }
 
         public string ResetPasswordGenerator()

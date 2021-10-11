@@ -33,7 +33,7 @@ namespace Client.Repository.Data
         public async Task<List<Employee>> GetEmployee()
         {
             List<Employee> entities = new List<Employee>();
-            using (var response = await httpClient.GetAsync(request))
+            using (var response = await httpClient.GetAsync(request+"GetEmployeeOnly/"))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entities = JsonConvert.DeserializeObject<List<Employee>>(apiResponse);
@@ -41,16 +41,30 @@ namespace Client.Repository.Data
             return entities;
         }
 
+        public async Task<List<Employee>> GetHR()
+        {
+            List<Employee> entities = new List<Employee>();
+            using (var response = await httpClient.GetAsync(request + "GetHROnly/"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<Employee>>(apiResponse);
+            }
+            return entities;
+        }
+
+
+
         public async Task<Employee> GetEmployee(string ID)
         {
             Employee employee= new Employee();
-            using (var response = await httpClient.GetAsync(request + ID))
+            using (var response = await httpClient.GetAsync(request+ID))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 employee = JsonConvert.DeserializeObject<Employee>(apiResponse);
             }
             return employee;
         }
+
 
         public string Register(Employee employee)
         {

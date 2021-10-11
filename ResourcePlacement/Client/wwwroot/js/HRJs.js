@@ -6,7 +6,7 @@
        "filter": true,
         "dom": 'Bfrtip',
         "ajax": {
-            "url": "/Employees/GetEmployee",
+            "url": "/Employees/GetHR",
             "datatype": "json",
             "dataSrc": ""
         },
@@ -184,7 +184,7 @@
                     text: 'Press Any Button to Continue',
                     icon: 'success',
                     confirmButtonText: 'Okay'
-                    })
+                })
                 table.ajax.reload();
             },
             error: function (xhr, status, error) {
@@ -228,7 +228,7 @@ function moneyMaker(bilangan) {
 
 function detail(id) {
     $.ajax({
-        url: "/Employees/GetEmployee/"+id
+        url: "/Employees/GetHR/"+id
     }).done((result) => {
         console.log(result);
         var text = "";

@@ -9,7 +9,7 @@
     <title>Resource Placement</title>
     @using Microsoft.AspNetCore.Http
     @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
-    @{ ViewBag.email = HttpContextAccessor.HttpContext.Session.GetString("Email"); }
+    @{ ViewBag.User = HttpContextAccessor.HttpContext.Session.GetString("User"); }
 <link href="/css/styles.css" rel="stylesheet" />
 
             <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
@@ -23,7 +23,7 @@
         <button class="btn btn-link btn-sm order-1 order-lg-0 me-4 me-lg-0" id="sidebarToggle" href="#!"><i class="fas fa-bars"></i></button>
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <a class="navbar-brand ps-3">Current User : @ViewBag.email&nbsp;&nbsp;</a>
+            <a class="navbar-brand ps-3">Logged in as : @ViewBag.User&nbsp;&nbsp;</a>
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -67,7 +67,7 @@
                         <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                             <nav class="sb-sidenav-menu-nested nav">
                                 <a class="nav-link" asp-controller="Employees" asp-action="Main">Employees List</a>
-                                <a class="nav-link" href="#">HR List</a>
+                                <a class="nav-link" asp-controller="Employees" asp-action="HRMain">HR List</a>
                             </nav>
                         </div>
 
@@ -141,8 +141,8 @@
                     </div>
                 </div>
                 <div class="sb-sidenav-footer">
-                    <div class="small">Logged in as:</div>
-                    Start Bootstrap
+                    <div class="small">Logged in as :</div>
+                    @ViewBag.User&nbsp;&nbsp;
                 </div>
             </nav>
         </div>

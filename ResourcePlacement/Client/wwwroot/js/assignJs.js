@@ -221,17 +221,18 @@
             $("#msgJobID").html("Job ID can't be empty");
             validate = false;
         } else {
-            document.getElementById("#JobID").className = "form-control is-valid";
+            document.getElementById("JobID").className = "form-control is-valid";
             obj_assign.JobId = $("#JobID").val();
             validate = true;
         }
 
+        validate = false;
         if ($("#InterviewDate").val() == "" && validate == false) {
             document.getElementById("InterviewDate").className = "form-control is-invalid";
             $("#msgInterviewDate").html("Interview Date can't be empty");
             validate = false;
         } else {
-            document.getElementById("#InterviewDate").className = "form-control is-valid";
+            document.getElementById("InterviewDate").className = "form-control is-valid";
             obj_assign.InterviewDate= $("#InterviewDate").val();
             validate = true;
         }
@@ -241,17 +242,17 @@
             $("#msgInterviewTime").html("Interview Time can't be empty");
             validate = false;
         } else {
-            document.getElementById("#InterviewTime").className = "form-control is-valid";
+            document.getElementById("InterviewTime").className = "form-control is-valid";
             obj_assign.InterviewTime = $("#InterviewTime").val();
             validate = true;
         }
 
-        if ($("#Interviewer").val() == "" && validate == false) {
+        if ($("#Interviewer").val() == "") {
             document.getElementById("Interviewer").className = "form-control is-invalid";
             $("#msgUser").html("Interviewer can't be empty");
             validate = false;
         } else {
-            document.getElementById("#Interviewer").className = "form-control is-valid";
+            document.getElementById("Interviewer").className = "form-control is-valid";
             obj_assign.Interviewer = $("#Interviewer").val();
             validate = true;
         }

@@ -2,6 +2,7 @@
 using Client.Repository.Data;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
+using ResourcePlacement.ViewModel;
 using System.Threading.Tasks;
 
 namespace Client.Controllers
@@ -16,10 +17,18 @@ namespace Client.Controllers
         }
 
 
-        [HttpGet("GetResult")]
-        public async Task<JsonResult> GetJobEmployee()
+        [HttpPost("Decline")]
+        public JsonResult Register(JobEmployee jobEmployee)
         {
-            var result = await repository.GetJobEmployee();
+            var result = repository.ResultDecline(jobEmployee);
+            return Json(result);
+        }
+
+
+        [HttpPost("Accepted")]
+        public JsonResult Result(JobEmployeeVM jobEmployeevm)
+        {
+            var result = repository.ResultAccept(jobEmployeevm);
             return Json(result);
         }
 

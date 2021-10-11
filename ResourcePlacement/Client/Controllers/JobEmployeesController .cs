@@ -24,6 +24,28 @@ namespace Client.Controllers
         }
 
 
+        [HttpGet("Invited")]
+        public async Task<JsonResult> Invited()
+        {
+            var result = await repository.GetJobEmployeeInvited();
+            return Json(result);
+        }
+
+        [HttpGet("Interview")]
+        public async Task<JsonResult> Interview()
+        {
+            var result = await repository.GetJobEmployeeInterview();
+            return Json(result);
+        }
+
+        [HttpGet("Finalized")]
+        public async Task<JsonResult> Finalized()
+        {
+            var result = await repository.GetJobEmployeeFinalized();
+            return Json(result);
+        }
+
+
         [HttpGet("Main")]
         public IActionResult Index()
         {

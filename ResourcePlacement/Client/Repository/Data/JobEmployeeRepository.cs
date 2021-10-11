@@ -41,10 +41,57 @@ namespace Client.Repository.Data
             return entities;
         }
 
+        public async Task<List<JobEmployeeVM>> GetJobEmployeeInvited()
+        {
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync(request + "GetJobEmployeeInvited"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
+            }
+            return entities;
+        }
+
+        public async Task<List<JobEmployeeVM>> GetJobEmployeeInterview()
+        {
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync(request + "GetJobEmployeeInterview"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
+            }
+            return entities;
+        }
+
+        public async Task<List<JobEmployeeVM>> GetJobEmployeeFinalized()
+        {
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync(request + "GetJobEmployeeFinalized"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
+            }
+            return entities;
+        }
+
         public string Register(JobEmployee jobEmployee)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(jobEmployee), Encoding.UTF8, "application/json");
             var result = httpClient.PostAsync(request + "InsertAssignmentInvitation", content).Result.Content.ReadAsStringAsync().Result;
+            return result;
+        }
+
+        public string ResultDecline(JobEmployee jobEmployee)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(jobEmployee), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(request, content).Result.Content.ReadAsStringAsync().Result;
+            return result;
+        }
+
+        public string ResultAccept(JobEmployeeVM jobEmployeevm)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(jobEmployeevm), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(request + "InsertJEFinalized", content).Result.Content.ReadAsStringAsync().Result;
             return result;
         }
 

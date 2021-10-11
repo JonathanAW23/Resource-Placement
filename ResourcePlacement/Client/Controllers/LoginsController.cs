@@ -32,6 +32,7 @@ namespace Client.Controllers
             };
             var jwtToken = await repository.Auth(login);
             var token = jwtToken.Token;
+            var user = jwtToken.FullName;
 
             if (token == null)
             {
@@ -39,9 +40,9 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token);
-            HttpContext.Session.SetString("Email", email);
+            HttpContext.Session.SetString("User", user);
 
-            return RedirectToAction("index", "home");
+            return RedirectToAction("Main", "Employees");
         }
 
         [AllowAnonymous]

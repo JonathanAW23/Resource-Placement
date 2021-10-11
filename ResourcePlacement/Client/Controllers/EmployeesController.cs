@@ -28,8 +28,22 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        [HttpGet("GetHR")]
+        public async Task<JsonResult> GetHR()
+        {
+            var result = await repository.GetHR();
+            return Json(result);
+        }
+
         [HttpGet("GetEmployee/{ID}")]
         public async Task<JsonResult> GetEmployee(string ID)
+        {
+            var result = await repository.GetEmployee(ID);
+            return Json(result);
+        }
+
+        [HttpGet("GetHR/{ID}")]
+        public async Task<JsonResult> GetHR(string ID)
         {
             var result = await repository.GetEmployee(ID);
             return Json(result);
@@ -46,6 +60,13 @@ namespace Client.Controllers
 
         [HttpGet("Main")]
         public IActionResult Index()
+        {
+            return View();
+        }
+
+
+        [HttpGet("HRMain")]
+        public IActionResult IndexHR()
         {
             return View();
         }

@@ -27,6 +27,27 @@ namespace ResourcePlacement.Controllers
             try
             {
                 jobEmployeeRepository.InsertJEJHAccepted(jobEmployeeVM);
+                var email = jobEmployeeRepository.GetEmail(jobEmployeeVM.IdEmployee);
+                var sendAccepted = jobEmployeeRepository.EmailResultAccepted(email, jobEmployeeVM.FullName);
+                return Ok("Sukses Insert Data");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+
+        }
+
+        [HttpPost("InsertJEFinalizedRejected")]
+        public ActionResult InsertJEFinalizedRejected(JobEmployee jobEmployee)
+        {
+            try
+            {
+                Insert(jobEmployee);
+                var email = jobEmployeeRepository.GetEmail(jobEmployee.EmployeeId);
+                var FullName = jobEmployeeRepository.GetName(jobEmployee.EmployeeId);
+                var sendRejected = jobEmployeeRepository.EmailResultRejected(email, FullName);
                 return Ok("Sukses Insert Data");
 
             }

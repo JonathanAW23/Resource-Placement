@@ -3,7 +3,7 @@
         "filter": true,
         
         "ajax": {
-            "url": "/JobEmployees/GetJobEmployee",
+            "url": "/JobEmployees/Invited",
             "datatype": "json",
             "dataSrc": ""
         },
@@ -98,31 +98,111 @@
         obj_interview.InterviewDate = $("#InterviewDate").val()+'T'+$("#InterviewTime").val();
         obj_interview.InterviewTime = $("#InterviewTime").val().toString();
         obj_interview.Interviewer = $("#Interviewer").val();
-        
+
         console.log(JSON.stringify(today));
         console.log(JSON.stringify(obj_interview));
 
-        $.ajax({
-            url: "/Interviews/interview",
-            method: 'POST',
-            dataType: 'json',
-            contentType: 'application/x-www-form-urlencoded',
-            data: obj_interview,
-            success: function (data) {
-                
-                Swal.fire({
-                    title: 'Success Inserting Data!',
-                    text: 'Press Any Button to Continue',
-                    icon: 'success',
-                    confirmButtonText: 'Okay'
-                })
-               
-            },
-            error: function (xhr, status, error) {
-                console.log(xhr.responseJSON.errors);
+        var validate = false;
 
-            }
-        })
+        if ($("#validationCustom03").val() == "" && validate == false) {
+            document.getElementById("validationCustom03").className = "form-control is-invalid";
+            $("#msgID").html("Employee ID can't be empty");
+            validate = false;
+        } else {
+            document.getElementById("validationCustom03").className = "form-control is-valid";
+            obj_interview.EmployeeId = $("#validationCustom03").val();
+            validate = true;
+        }
+
+        if ($("#JobID").val() == "" && validate == false) {
+            document.getElementById("JobID").className = "form-control is-invalid";
+            $("#msgJobID").html("Job ID can't be empty");
+            validate = false;
+        } else {
+            document.getElementById("JobID").className = "form-control is-valid";
+            obj_interview.JobId = $("#JobID").val();
+            validate = true;
+        }
+
+        if ($("#InterviewDate").val() == "" && validate == false) {
+            document.getElementById("InterviewDate").className = "form-control is-invalid";
+            $("#msgInterviewDate").html("Interview Date can't be empty");
+            validate = false;
+        } else {
+            document.getElementById("InterviewDate").className = "form-control is-valid";
+            obj_interview.InterviewDate = $("#InterviewDate").val();
+            validate = true;
+        }
+
+        if ($("#InterviewTime").val() == "" && validate == false) {
+            document.getElementById("InterviewTime").className = "form-control is-invalid";
+            $("#msgInterviewTime").html("Interview Time can't be empty");
+            validate = false;
+        } else {
+            document.getElementById("InterviewTime").className = "form-control is-valid";
+            obj_interview.InterviewTime = $("#InterviewTime").val();
+            validate = true;
+        }
+
+        if ($("#Interviewer").val() == "") {
+            document.getElementById("Interviewer").className = "form-control is-invalid";
+            $("#msgUser").html("Interviewer can't be empty");
+            validate = false;
+        } else {
+            document.getElementById("Interviewer").className = "form-control is-valid";
+            obj_interview.Interviewer = $("#Interviewer").val();
+            validate = true;
+        }
+
+        console.log(validate);
+
+      
+
+
+        if (validate == true) {
+            $.ajax({
+                url: "/Interviews/interview",
+                method: 'POST',
+                dataType: 'json',
+                contentType: 'application/x-www-form-urlencoded',
+                data: obj_interview,
+                beforeSend: function () {
+                    Swal.fire({
+                        title: 'Now loading',
+                        text: "Please wait",
+                        imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
+                        imageWidth: 200,
+                        imageHeight: 200,
+                        imageAlt: 'Custom image',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    })
+                },
+                success: function (data) {
+
+                    Swal.fire({
+                        title: 'Success Inserting Data!',
+                        text: 'Press Any Button to Continue',
+                        icon: 'success',
+                        confirmButtonText: 'Okay'
+                    })
+
+                },
+                error: function (xhr, status, error) {
+                    console.log(xhr.responseJSON.errors);
+
+                }
+            })
+        } else {
+            event.preventDefault();
+            console.log(JSON.stringify(obj_interview));
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
+            event.stopPropagation();
+        }
     })
 })
 

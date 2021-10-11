@@ -172,7 +172,6 @@ namespace ResourcePlacement.Repository.Data
                 return getEmail[0].Email;
             }
         }
-
         public string GetName(string Id)
         {
             var getName = (from e in myContext.Employees where e.Id == Id select new Employee { FirstName = e.FirstName, LastName = e.LastName }).ToList();
@@ -227,6 +226,58 @@ namespace ResourcePlacement.Repository.Data
                 message.To.Add(email);//email penerima (email testing atau string email yg disebut diatas)
                 message.Subject = $"[Recruit-Me Interview] {name} {today.Date:dd/MM/yyyy}";
                 message.Body = $"Dear {name},\n\nYou have been invited for interview on assignment at :\n\nCompany : {company}\nPositon : {jobName}\nDate : {intdate.Date:dd/MM/yyyy}\nTime : {inttime}\nuser : {user}\n\n Please confirm if you can or cannot go to the interview at designated date by contacting this number : +62895687654987 via: WhatsApp\n\nThank you for your time";
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("ercheriom@gmail.com", "Vongola_123"); //self explanatory
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+                return "Email berhasil Dikirim";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public string EmailResultAccepted(string email, string name)//tambah string email kalo mau kirim email sesuai email yg di input di model forgot password
+        {
+            try
+            {
+                DateTime today = DateTime.Now;
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress("ercheriom@gmail.com");//email pengirim
+                message.To.Add(email);//email penerima (email testing atau string email yg disebut diatas)
+                message.Subject = $"[Recruit-Me Result] {name} {today.Date:dd/MM/yyyy}";
+                message.Body = $"Dear {name},\n\n We would like to say congratulations for passing the recruitment process,\nwe'll contact you with further details via Whatsapp from this number : +6289539489012.\n\nThank you for your time";
+                smtp.Port = 587;
+                smtp.Host = "smtp.gmail.com";
+                smtp.EnableSsl = true;
+                smtp.UseDefaultCredentials = false;
+                smtp.Credentials = new NetworkCredential("ercheriom@gmail.com", "Vongola_123"); //self explanatory
+                smtp.DeliveryMethod = SmtpDeliveryMethod.Network;
+                smtp.Send(message);
+                return "Email berhasil Dikirim";
+            }
+            catch (Exception e)
+            {
+                return e.Message;
+            }
+        }
+
+        public string EmailResultRejected(string email, string name)//tambah string email kalo mau kirim email sesuai email yg di input di model forgot password
+        {
+            try
+            {
+                DateTime today = DateTime.Now;
+                MailMessage message = new MailMessage();
+                SmtpClient smtp = new SmtpClient();
+                message.From = new MailAddress("ercheriom@gmail.com");//email pengirim
+                message.To.Add(email);//email penerima (email testing atau string email yg disebut diatas)
+                message.Subject = $"[Recruit-Me Result] {name} {today.Date:dd/MM/yyyy}";
+                message.Body = $"Dear {name},\n\n Thank you very much for taking the time to interview with us. We appreciate your interest in the company and the job.\n\nI am writing to let you know that we have selected the candidate whom we believe most closely matches the job requirements of the position.\n\nWe do appreciate you taking the time to interview with us and encourage you to apply for other openings at the company in the future.\n\nAgain, thank you for your time.";
                 smtp.Port = 587;
                 smtp.Host = "smtp.gmail.com";
                 smtp.EnableSsl = true;

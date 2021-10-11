@@ -3,7 +3,7 @@
         "filter": true,
         "dom": 'Bfrtip',
         "ajax": {
-            "url": "/JobEmployees/GetJobEmployee",
+            "url": "/JobEmployees/Invited",
             "datatype": "json",
             "dataSrc": ""
         },

@@ -9,5 +9,6 @@ namespace ResourcePlacement.ViewModel
     {
         public string Messages { get; set; }
         public string Token { get; set; }
+        public string FullName { get; set; }
     }
 }

@@ -35,10 +35,11 @@ namespace ResourcePlacement.Controllers
             string Id = accountRepository.CheckEmail(loginVM.Email);
             if (string.IsNullOrEmpty(Id))
             {
-                return NotFound(new JWTokenVM { Token = null, Messages = "Email not found" });
+                return NotFound(new JWTokenVM { Token = null, Messages = "Email not found", FullName = null });
             }
             else if (accountRepository.CheckPassword(Id, loginVM.Password))
             {
+                var name = accountRepository.GetName(Id);
                 string[] roles = accountRepository.GetRole(Id);
                 var claims = new List<Claim>
                 {
@@ -54,11 +55,11 @@ namespace ResourcePlacement.Controllers
                 var signIn = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
                 var token = new JwtSecurityToken(configuration["Jwt:Issuer"], configuration["Jwt:Audience"], claims, expires: DateTime.UtcNow.AddDays(1), signingCredentials: signIn);
 
-                return Ok(new JWTokenVM { Token = new JwtSecurityTokenHandler().WriteToken(token), Messages = "Login success" });
+                return Ok(new JWTokenVM { Token = new JwtSecurityTokenHandler().WriteToken(token), Messages = "Login success", FullName = name });
             }
             else
             {
-                return Ok(new JWTokenVM { Token = null, Messages = "Wrong password" });
+                return Ok(new JWTokenVM { Token = null, Messages = "Wrong password", FullName = null });
             }
         }
 
