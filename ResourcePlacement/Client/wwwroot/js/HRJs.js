@@ -1,8 +1,6 @@
 ﻿$(document).ready(function () {
 
-    
-
-    var table=$('#dataemployee').DataTable({
+    var table=$('#datahr').DataTable({
        "filter": true,
         "dom": 'Bfrtip',
         "ajax": {
@@ -59,18 +57,10 @@
                         tPhone = '(' + '+62' + ')' + tPhone.substring(0, 3) + '-' + tPhone.substring(4, 8) + '-' + tPhone.substring(9, 13);
                         return tPhone
                     }
-                }
-            },
-
-           
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    var money = row["salary"]
-                    return "Rp " + moneyMaker(money);
                 },
-                "autoWidth": true
+                 "autoWidth": true
             },
+           
             {
                 "data": null,
                 "orderable": false,
@@ -123,6 +113,7 @@
         obj_register.Gender = parseInt($('#inputGender').val());
         obj_register.EmploymentStatus = parseInt($('#inputStatus').val());
         obj_register.DepartmentId = parseInt($('#department').val());
+        obj_register.Password =obj_register.FirstName+"1234567";
        
         if ($("#validationgaji").val() == "") {
             document.getElementById("validationgaji").className = "form-control is-invalid";
@@ -172,7 +163,7 @@
         }
 
         $.ajax({
-            url: "/Employees/Add",
+            url: "/Employees/AddHR",
             method: 'POST',
             dataType: 'json',
             contentType: 'application/x-www-form-urlencoded',

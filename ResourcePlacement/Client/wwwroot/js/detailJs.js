@@ -1,74 +1,72 @@
 ﻿$(document).ready(function () {
-    $('#dataJobInterview').DataTable({
+    console.log(localStorage.getItem("id"));
+
+    $('#datainterview').DataTable({
         "filter": true,
         "dom": 'Bfrtip',
         "ajax": {
-            "url": "/JobEmployees/Finalized",
+            "url": "/JobEmployees/GetInterview/" + localStorage.getItem("id"),
             "datatype": "json",
             "dataSrc": ""
         },
 
         "columns": [
-
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, full, meta) {
                     return meta.row + 1;
-                }
+                },
+                "autoWidth": true
             },
             {
-                "data": "idJob"
+                "data": "idEmployee",
+
+                "autoWidth": true
             },
-            {
-                "data": "titleJob"
-            },
-            {
-                "data": "company"
-            },
-            {
-                "data": "idEmployee"
-            },
+
             {
                 "data": "fullName",
 
                 "autoWidth": true
             },
             {
-                "data": "interviewer",
+                "data": "titleJob",
 
                 "autoWidth": true
             },
             {
-                
-                "data": "interviewDate", render: function (toFormat) {
-                    var Date=toFormat.toString().substring(0,10);
+                "data": "company",
+
+                "autoWidth": true
+            },
+        
+            {
+                data: "intervewDate", render: function (toFormat) {
+                    var iDate;
+                    iDate = toFormat.toString();
+                    return iDate.substring(0, 2);
                     
-                    return Date;
                 },
-                "orderable": true,
-                "autoWidth": true
+                "width": "20%"
             },
             {
-                "data": "interviewTime",
-
-                "autoWidth": true
+                "data": "interviewTime"
             },
             {
-                "data": "status", render: function (toFormat) {
-                    var status;
-                    console.log(toFormat)
-                    if (toFormat === 1) {
-                        status = "Invited"
-                    } else if (toFormat === 2) {
-                        status = "Interviewed"
-                    } else {
-                        status = "Finalized"
+                "data": "interviewer"
+            },
+            {
+                "data": "interviewResult", render: function (toFormat) {
+                    var result;
+                    if (toFormat == 0) {
+                        result = "Decline";
+                        return result;
                     }
-                    return status;
-                },
-                "orderable": false
-            }
+                    result="Accept"
+                }
+
+            },
         ],
 
         "select": true,
@@ -97,4 +95,5 @@
             }
         ]
     });
+
 })

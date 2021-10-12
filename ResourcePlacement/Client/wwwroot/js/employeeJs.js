@@ -1,10 +1,12 @@
 ﻿$(document).ready(function () {
 
-    
-
-    var table=$('#dataemployee').DataTable({
+   
+    var table = $('#dataemployee').removeAttr('width').DataTable({
        "filter": true,
         "dom": 'Bfrtip',
+        scrollY: "300px",
+        scrollX: true,
+        scrollCollapse: true,
         "ajax": {
             "url": "/Employees/GetEmployee",
             "datatype": "json",
@@ -17,10 +19,13 @@
                 "orderable": false,
                 "render": function (data, type, full, meta) {
                     return meta.row+1;
-                }
+                },
+                "autoWidth": true
             },
             {
-                "data": "id"
+                "data": "id",
+
+                "autoWidth": true
             },
             {
                 "data": null,
@@ -59,29 +64,23 @@
                         tPhone = '(' + '+62' + ')' + tPhone.substring(0, 3) + '-' + tPhone.substring(4, 8) + '-' + tPhone.substring(9, 13);
                         return tPhone
                     }
-                }
-            },
-
-           
-            {
-                "data": null,
-                "render": function (data, type, row) {
-                    var money = row["salary"]
-                    return "Rp " + moneyMaker(money);
                 },
-                "autoWidth": true
+                "width": "20%"
             },
+           
             {
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row) {
-                    var button = `<button id= "btn-detail" class="btn btn-primary" data-toogle="modal" data-target="#GetEmployee" onclick="detail('${row["id"]}')">Details</button>`;
-                    
-                    button +='          '+`<button class="btn btn-danger" onclick="del('${row["id"]}')">Delete</button>`;
-                    return button
-                }
+                    const button = `<button id= "btn-detail" class="btn btn-primary" data-toogle="modal" data-target="#GetEmployee" onclick="detail('${row["id"]}')">Details</button>
+                    <a id="detail" class="btn btn-success" asp-controller="Details" asp-action="detail-assign">Detail Assignment</a>`;
+                    localStorage.setItem("id", row["id"]);
 
+                    return button;
+                },
+                "width": "30%",
                 
+                   
             }
        ],
 
@@ -110,7 +109,14 @@
                ]
            }
        ]
-   });
+    });
+
+    $('#dataemployee tbody').on('click', 'a', function () {
+        console.log("This is Job Interview");
+    });
+
+
+
 
     $("#submitdata").click(function (event) {
         event.preventDefault();
@@ -225,7 +231,6 @@ function moneyMaker(bilangan) {
     return rupiah;
 }
 
-
 function detail(id) {
     $.ajax({
         url: "/Employees/GetEmployee/"+id
@@ -295,7 +300,7 @@ function del(ID) {
     }).then((result) => {
         if (result.isConfirmed) {
             $.ajax({
-                url: "/Employees/" + ID,
+                url: "/Employees/DeleteEmployee" + ID,
                 method: 'DELETE'
             }).done((result) => {
                 console.log(result)

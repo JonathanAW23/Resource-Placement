@@ -102,6 +102,53 @@ namespace ResourcePlacement.Repository.Data
             }
             return getJobEmployeeVMs;
         }
+
+        public IEnumerable<JobEmployeeVM> GetJobEmployeeInvitedVMFiltered()
+        {
+            var getJobEmployeeVMs = (from e in myContext.Employees
+                                     join je in myContext.JobEmployees on e.Id equals je.EmployeeId
+                                     join j in myContext.Jobs on je.JobId equals j.Id
+                                     join c in myContext.Companies on j.CompanyId equals c.Id
+                                     where je.Status == 1
+                                     select new JobEmployeeVM
+                                     {
+                                         IdEmployee = e.Id,
+                                         FullName = e.FirstName + " " + e.LastName,
+                                         IdJob = j.Id,
+                                         TitleJob = j.Title,
+                                         Company = c.Name,
+                                         Status = je.Status,
+                                         InterviewDate = je.InterviewDate,
+                                         InterviewTime = je.InterviewTime,
+                                         Interviewer = je.Interviewer,
+                                         RecordDate = je.RecordDate,
+                                         InterviewResult = je.InterviewResult
+                                     }).ToList();
+
+            List<JobEmployeeVM> InvitedNotAssigned = new List<JobEmployeeVM>();
+            foreach (JobEmployeeVM jobevm in getJobEmployeeVMs)
+            {
+                bool notexist = true;
+                var temp = (from je in myContext.JobEmployees where je.EmployeeId == jobevm.IdEmployee && je.JobId == jobevm.IdJob select je.Status).ToArray();
+                foreach (int stat in temp)
+                {
+                    if (stat == 2)
+                    {
+                        notexist = false;
+                    }
+                }
+                if (notexist == true)
+                {
+                    InvitedNotAssigned.Add(jobevm);
+                }
+            }
+
+            if (InvitedNotAssigned.Count == 0)
+            {
+                return null;
+            }
+            return InvitedNotAssigned;
+        }
         public IEnumerable<JobEmployeeVM> GetJobEmployeeInterviewVM()
         {
             var getJobEmployeeVMs = (from e in myContext.Employees
@@ -129,6 +176,53 @@ namespace ResourcePlacement.Repository.Data
                 return null;
             }
             return getJobEmployeeVMs;
+        }
+
+        public IEnumerable<JobEmployeeVM> GetJobEmployeeInterviewVMFiltered()
+        {
+            var getJobEmployeeVMs = (from e in myContext.Employees
+                                     join je in myContext.JobEmployees on e.Id equals je.EmployeeId
+                                     join j in myContext.Jobs on je.JobId equals j.Id
+                                     join c in myContext.Companies on j.CompanyId equals c.Id
+                                     where je.Status == 2
+                                     select new JobEmployeeVM
+                                     {
+                                         IdEmployee = e.Id,
+                                         FullName = e.FirstName + " " + e.LastName,
+                                         IdJob = j.Id,
+                                         TitleJob = j.Title,
+                                         Company = c.Name,
+                                         Status = je.Status,
+                                         InterviewDate = je.InterviewDate,
+                                         InterviewTime = je.InterviewTime,
+                                         Interviewer = je.Interviewer,
+                                         RecordDate = je.RecordDate,
+                                         InterviewResult = je.InterviewResult
+                                     }).ToList();
+
+            List<JobEmployeeVM> InvterviewedNotAssigned = new List<JobEmployeeVM>();
+            foreach (JobEmployeeVM jobevm in getJobEmployeeVMs)
+            {
+                bool notexist = true;
+                var temp = (from je in myContext.JobEmployees where je.EmployeeId == jobevm.IdEmployee && je.JobId == jobevm.IdJob select je.Status).ToArray();
+                foreach (int stat in temp)
+                {
+                    if (stat == 3)
+                    {
+                        notexist = false;
+                    }
+                }
+                if (notexist == true)
+                {
+                    InvterviewedNotAssigned.Add(jobevm);
+                }
+            }
+
+            if (InvterviewedNotAssigned.Count == 0)
+            {
+                return null;
+            }
+            return InvterviewedNotAssigned;
         }
         public IEnumerable<JobEmployeeVM> GetJobEmployeeFinalizedVM()
         {

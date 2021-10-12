@@ -3,6 +3,7 @@ using Client.Repository.Data;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
+using ResourcePlacement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -56,6 +57,19 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        [HttpPost("AddHR")]
+        public JsonResult RegisterHR(HRVM hrvm)
+        {
+            var result = repository.RegisterHR(hrvm);
+            return Json(result);
+        }
+
+        [HttpDelete("id")]
+        public JsonResult DeleteEmployee(string id)
+        {
+            var result = repository.DeleteEmployee(id);
+            return Json(result);
+        }
 
 
         [HttpGet("Main")]

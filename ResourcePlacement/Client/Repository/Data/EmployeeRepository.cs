@@ -1,6 +1,7 @@
 ﻿using Client.Base.Url;
 using Newtonsoft.Json;
 using ResourcePlacement.Model;
+using ResourcePlacement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -41,6 +42,7 @@ namespace Client.Repository.Data
             return entities;
         }
 
+
         public async Task<List<Employee>> GetHR()
         {
             List<Employee> entities = new List<Employee>();
@@ -65,10 +67,23 @@ namespace Client.Repository.Data
             return employee;
         }
 
+        public HttpStatusCode DeleteEmployee(string id)
+        {
+            var result = httpClient.DeleteAsync(request + id).Result;
+            return result.StatusCode;
+        }
+
 
         public string Register(Employee employee)
         {
             StringContent content = new StringContent(JsonConvert.SerializeObject(employee), Encoding.UTF8, "application/json");
+            var result = httpClient.PostAsync(request, content).Result.Content.ReadAsStringAsync().Result;
+            return result;
+        }
+
+        public string RegisterHR(HRVM hrvm)
+        {
+            StringContent content = new StringContent(JsonConvert.SerializeObject(hrvm), Encoding.UTF8, "application/json");
             var result = httpClient.PostAsync(request, content).Result.Content.ReadAsStringAsync().Result;
             return result;
         }

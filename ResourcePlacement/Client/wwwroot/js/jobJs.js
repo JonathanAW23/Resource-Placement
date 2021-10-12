@@ -233,16 +233,6 @@ function del(nik) {
     })
 }
 
-function assign(id) {
-    $.ajax({
-        url: "/Assigns/assign-form/"
-    }).done((result) => {
-        console.log(id);
-    }).fail((result) => {
-        console.log(result);
-    });
-}
-
 
 
 

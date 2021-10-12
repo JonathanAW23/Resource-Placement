@@ -40,6 +40,8 @@ namespace Client.Controllers
             }
 
             HttpContext.Session.SetString("JWToken", token);
+            HttpContext.Session.SetString("Email", email);
+
             HttpContext.Session.SetString("User", user);
 
             return RedirectToAction("Main", "Employees");

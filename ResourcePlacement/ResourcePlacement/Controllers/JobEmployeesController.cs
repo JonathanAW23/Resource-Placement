@@ -86,10 +86,38 @@ namespace ResourcePlacement.Controllers
             }
         }
 
+        [HttpGet("GetJobEmployeeInvitedFiltered")]
+        public ActionResult GetJobEmployeeInvitedVMFiltered()
+        {
+            var jobEmployees = jobEmployeeRepository.GetJobEmployeeInvitedVMFiltered();
+            if (jobEmployees == null)
+            {
+                return NotFound(jobEmployees);
+            }
+            else
+            {
+                return Ok(jobEmployees);
+            }
+        }
+
         [HttpGet("GetJobEmployeeInterview")]
         public ActionResult GetJobEmployeeInterviewVM()
         {
             var jobEmployees = jobEmployeeRepository.GetJobEmployeeInterviewVM();
+            if (jobEmployees == null)
+            {
+                return NotFound(jobEmployees);
+            }
+            else
+            {
+                return Ok(jobEmployees);
+            }
+        }
+
+        [HttpGet("GetJobEmployeeInterviewFiltered")]
+        public ActionResult GetJobEmployeeInterviewVMFiltered()
+        {
+            var jobEmployees = jobEmployeeRepository.GetJobEmployeeInterviewVMFiltered();
             if (jobEmployees == null)
             {
                 return NotFound(jobEmployees);

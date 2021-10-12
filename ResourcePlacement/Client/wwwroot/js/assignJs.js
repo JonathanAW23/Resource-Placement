@@ -193,7 +193,7 @@
     $("#assignment").click(function (event) {
         event.preventDefault();
         var d = new Date();
-        var today = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T${addZero(d.getHours())}:${addZero(d.getMinutes())}:${addZero(d.getSeconds())}`;
+        var today = `${d.getFullYear()}-${addZero(d.getMonth() + 1)}-${addZero(d.getDate())}T${addZero(d.getHours())}:${addZero(d.getMinutes())}:${addZero(d.getSeconds())}`;
         var obj_assign = new Object();
         obj_assign.EmployeeId = $("#validationCustom03").val();
         obj_assign.JobId = $("#JobID").val();

@@ -10,20 +10,20 @@
     @using Microsoft.AspNetCore.Http
     @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
     @{ ViewBag.email = HttpContextAccessor.HttpContext.Session.GetString("Email"); }
-<link href="/css/styles.css" rel="stylesheet" />
+    @{ ViewBag.User = HttpContextAccessor.HttpContext.Session.GetString("User"); }
+    <link href="/css/styles.css" rel="stylesheet" />
 
-            <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
-                        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">
-                                </head>
+    <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.5.6/css/buttons.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.1/css/jquery.dataTables.css">
+</head>
 <body class="sb-nav-fixed">
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
         <!-- Navbar Brand-->
         <a class="navbar-brand ps-3" asp-controller="Employees" asp-action="Main">Resource Placement</a>
         <!-- Sidebar Toggle-->
-      
         <!-- Navbar Search-->
         <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-            <a class="navbar-brand ps-3">Current User : @ViewBag.email&nbsp;&nbsp;</a>
+            <a class="navbar-brand ps-3">Current User : @ViewBag.User&nbsp;&nbsp;</a>
         </form>
         <!-- Navbar-->
         <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
@@ -49,14 +49,19 @@
         </ul>
     </nav>
     
-                <div class="container-fluid px-4">
+        <div class="sb-sidenav-footer">
+            <div class="small">Logged in as:</div>
+            @ViewBag.User&nbsp;&nbsp;
+        </div>
+    
+    <div class="container-fluid px-4">
 
 
-                    @RenderBody()
+        @RenderBody()
 
 
-                </div>
-     
+    </div>
+
 
 
 

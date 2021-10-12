@@ -4,7 +4,7 @@ $(document).ready(function () {
         "filter": true,
         
         "ajax": {
-            "url": "/JobEmployees/interview",
+            "url": "/JobEmployees/interviewFiltered",
             "datatype": "json",
             "dataSrc": ""
         },
@@ -99,7 +99,7 @@ $(document).ready(function () {
     $("#interview").click(function (event) {
         event.preventDefault();
         var d = new Date();
-        var today = `${d.getFullYear()}-${d.getMonth() + 1}-${d.getDate()}T${addZero(d.getHours())}:${addZero(d.getMinutes())}:${addZero(d.getSeconds())}`;
+        var today = `${d.getFullYear()}-${addZero(d.getMonth() + 1)}-${addZero(d.getDate())}T${addZero(d.getHours())}:${addZero(d.getMinutes())}:${addZero(d.getSeconds())}`;
         var obj_interview = new Object();
         obj_interview.EmployeeId = $("#validationCustom03").val();
         obj_interview.JobId = $("#JobID").val();
@@ -113,6 +113,7 @@ $(document).ready(function () {
         obj_interview.InterviewResult = parseInt($("#result").val());
         obj_interview.StartDate = $("#startDate").val();
         obj_interview.EndDate = $("#endDate").val();
+        
 
         console.log(JSON.stringify(today));
         console.log(JSON.stringify(obj_interview));
@@ -213,6 +214,7 @@ $(document).ready(function () {
         if (validate == true && obj_interview.InterviewResult == 1) {
             obj_interview.IdEmployee = $("#validationCustom03").val();
             obj_interview.IdJob = $("#JobID").val();
+            obj_interview.FullName = $('#inputName').val();
             $.ajax({
                 url: "/JEFinalizeds/Accepted",
                 method: 'POST',
@@ -235,17 +237,29 @@ $(document).ready(function () {
                 }
             })
         } else if (validate == true && obj_interview.InterviewResult == 0) {
-            obj_interview.Status = parseInt('2');
+           
             $.ajax({
                 url: "/JEFinalizeds/Decline",
                 method: 'POST',
                 dataType: 'json',
                 contentType: 'application/x-www-form-urlencoded',
                 data: obj_interview,
+                beforeSend: function () {
+                    Swal.fire({
+                        title: 'Now loading',
+                        text: "Please wait",
+                        imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
+                        imageWidth: 200,
+                        imageHeight: 200,
+                        imageAlt: 'Custom image',
+                        showConfirmButton: false,
+                        allowOutsideClick: false
+                    })
+                },
                 success: function (data) {
 
                     Swal.fire({
-                        title: 'Success Inserting Data!',
+                        title: 'Success to Finalize Assign!',
                         text: 'Press Any Button to Continue',
                         icon: 'success',
                         confirmButtonText: 'Okay'

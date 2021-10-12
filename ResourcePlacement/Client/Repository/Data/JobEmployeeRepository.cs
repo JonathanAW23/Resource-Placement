@@ -52,6 +52,17 @@ namespace Client.Repository.Data
             return entities;
         }
 
+        public async Task<List<JobEmployeeVM>> GetJobEmployeeInvitedFiltered()
+        {
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync(request + "GetJobEmployeeInvitedFiltered"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
+            }
+            return entities;
+        }
+
         public async Task<List<JobEmployeeVM>> GetJobEmployeeInterview()
         {
             List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
@@ -63,10 +74,33 @@ namespace Client.Repository.Data
             return entities;
         }
 
+        public async Task<List<JobEmployeeVM>> GetJobEmployeeInterviewFiltered()
+        {
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync(request + "GetJobEmployeeInterviewFiltered"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
+            }
+            return entities;
+        }
+
         public async Task<List<JobEmployeeVM>> GetJobEmployeeFinalized()
         {
             List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
             using (var response = await httpClient.GetAsync(request + "GetJobEmployeeFinalized"))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
+            }
+            return entities;
+        }
+
+
+        public async Task<List<JobEmployeeVM>> GetEmployeeInterview(string id)
+        {
+            List<JobEmployeeVM> entities = new List<JobEmployeeVM>();
+            using (var response = await httpClient.GetAsync("Employees/" + "GetEmployeeInterviewHistories/" + id))
             {
                 string apiResponse = await response.Content.ReadAsStringAsync();
                 entities = JsonConvert.DeserializeObject<List<JobEmployeeVM>>(apiResponse);
