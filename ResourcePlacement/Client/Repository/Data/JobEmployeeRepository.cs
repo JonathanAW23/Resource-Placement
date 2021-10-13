@@ -96,6 +96,16 @@ namespace Client.Repository.Data
             return entities;
         }
 
+        public async Task<JobEmployee> GetJE(int id)
+        {
+            JobEmployee entities = null;
+            using (var response = await httpClient.GetAsync(request + id))
+            {
+                string apiResponse = await response.Content.ReadAsStringAsync();
+                entities = JsonConvert.DeserializeObject<JobEmployee>(apiResponse);
+            }
+            return entities;
+        }
 
         public async Task<List<JobEmployeeVM>> GetEmployeeInterview(string id)
         {

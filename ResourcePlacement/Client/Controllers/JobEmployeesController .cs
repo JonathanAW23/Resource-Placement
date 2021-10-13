@@ -30,6 +30,12 @@ namespace Client.Controllers
             return Json(result);
         }
 
+        [HttpGet("{ID}")]
+        public async Task<JsonResult> GetJE(int ID)
+        {
+            var result = await repository.GetJE(ID);
+            return Json(result);
+        }
 
         [HttpGet("Invited")]
         public async Task<JsonResult> Invited()

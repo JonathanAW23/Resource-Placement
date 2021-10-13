@@ -4,7 +4,7 @@ $(document).ready(function () {
         "filter": true,
         
         "ajax": {
-            "url": "/JobEmployees/interviewFiltered",
+            "url": "/JobEmployees/interview",
             "datatype": "json",
             "dataSrc": ""
         },

@@ -1,5 +1,15 @@
 ﻿@{ Layout = "_LayoutAdmin"; }
 
+<style>
+    .select2-selection__rendered {
+        width: 500px !important;
+    }
+
+    .select2-container .select2-selection--single {
+        width: 500px !important;
+    }
+</style>
+
 <div class="row">
     <div class="col-md-6">
 
@@ -12,7 +22,7 @@
     <div class="col-md-5"></div>
     <div class="col-md-1 d-flex align-items-center">
         <div class="d-flex align-items-center">
-            <a class="btn btn-secondary btn-lg" asp-controller="JEFinalizeds" asp-action="result-form">Add</a>
+            <button type="button" class="btn btn-secondary btn-lg" data-toggle="modal" data-target="#Result">Add</button>
         </div>
     </div>
 </div>
@@ -38,6 +48,138 @@
     <tbody id="JobInterview">
     </tbody>
 </table>
+
+<div class="modal fade" id="Result" tabindex="-1" role="dialog" aria-labelledby="Interview" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="Interview">Add Interview</h5>
+                <button type="button" class="close btn btn-danger" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="formresult" class="need-validations">
+                <div class="modal-body">
+
+                    <div class="form-group">
+                        <div class="row">
+                            <label for="inputEmployee">Data Interview</label>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-8-md-2 mb-3">
+                                <select id="inputJEmployee" name="inputJEmployee" class="form-control">
+                                </select>
+                                <div class="invalid-feedback">
+                                    <span id="msgJEmployee"></span>
+                                </div>
+                            </div>
+
+
+                            <div class="col-4-md-2 mb-3">
+
+                                <label for="EmployeeID">ID Employee</label>
+                                <div>
+                                    <input type="text" id="EmployeeId" class="form-control" required readonly>
+                                    <div class="invalid-feedback">
+                                        <span id="msgEmployee"></span>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span id="msgJob"></span>
+                                </div>
+                            </div>
+
+                            <div class="col-4-md-2 mb-3">
+
+                                <label for="JobId">ID Job</label>
+                                <div>
+                                    <input type="text" id="JobId" class="form-control" required readonly>
+                                    <div class="invalid-feedback">
+                                        <span id="msgJob"></span>
+                                    </div>
+                                </div>
+                                <div class="invalid-feedback">
+                                    <span id="msgJob"></span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="InterviewDate">Interview Date</label>
+                        <div>
+                            <input type="date" id="InterviewDate" class="form-control" name="trip-start" min="2021-01-01" max="2041-12-31" required readonly>
+                            <div class="invalid-feedback">
+                                <span id="msgInterviewDate"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="InterviewTime">Choose a time for Interview</label>
+                        <div class="col-4-md-2 mb-3">
+                            <input type="time" id="InterviewTime" class="form-control" name="appt" required readonly>
+                            <div class="invalid-feedback">
+                                <span id="msgInterviewTime"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+
+                        <label for="Interviewer">User</label>
+                        <input type="text" id="Interviewer" class="form-control" placeholder="User" required readonly>
+                        <div class="invalid-feedback">
+                            <span id="msgUser"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="result">Interview Result</label>
+                        <select id="result" class="form-control custom-select" required>
+                            <option value="">Choose</option>
+                            <option value="0">Rejected</option>
+                            <option value="1">Accepted</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <span id="msgResult"></span>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="jobDate">
+                        <label for="startDate">Start Date</label>
+                        <div>
+                            <input type="date" id="startDate" class="form-control" min="2021-01-01" max="2041-12-31" required>
+                            <div class="invalid-feedback">
+                                <span id="msgStart"></span>
+                            </div>
+                        </div>
+
+                        <label for="endDate">End Date</label>
+                        <div>
+                            <input type="date" id="endDate" class="form-control" min="2021-01-01" max="2041-12-31" required>
+                            <div class="invalid-feedback">
+                                <span id="msgEnd"></span>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+                
+            </form>
+
+
+            <div class="modal-footer">
+                <button id="interview" class="btn btn-primary" type="submit">Submit Form</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 @section Scripts {
     <script src="~/js/jobresultJS.js"></script>

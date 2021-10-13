@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace ResourcePlacement.Repository.Data
 {
-    public class JobEmployeeRepository : GeneralRepository<MyContext, JobEmployee, string>
+    public class JobEmployeeRepository : GeneralRepository<MyContext, JobEmployee, int>
     {
 
         private readonly MyContext myContext;
@@ -83,6 +83,7 @@ namespace ResourcePlacement.Repository.Data
                                      where je.Status == 1
                                      select new JobEmployeeVM
                                      {
+                                         Id=je.Id,
                                          IdEmployee = e.Id,
                                          FullName = e.FirstName + " " + e.LastName,
                                          IdJob = j.Id,
@@ -102,7 +103,6 @@ namespace ResourcePlacement.Repository.Data
             }
             return getJobEmployeeVMs;
         }
-
         public IEnumerable<JobEmployeeVM> GetJobEmployeeInvitedVMFiltered()
         {
             var getJobEmployeeVMs = (from e in myContext.Employees
@@ -158,6 +158,7 @@ namespace ResourcePlacement.Repository.Data
                                      where je.Status == 2
                                      select new JobEmployeeVM
                                      {
+                                         Id = je.Id,
                                          IdEmployee = e.Id,
                                          FullName = e.FirstName + " " + e.LastName,
                                          IdJob = j.Id,
@@ -177,7 +178,6 @@ namespace ResourcePlacement.Repository.Data
             }
             return getJobEmployeeVMs;
         }
-
         public IEnumerable<JobEmployeeVM> GetJobEmployeeInterviewVMFiltered()
         {
             var getJobEmployeeVMs = (from e in myContext.Employees

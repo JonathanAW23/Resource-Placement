@@ -8,6 +8,7 @@ namespace ResourcePlacement.ViewModel
 {
     public class JobEmployeeVM
     {
+        public int Id { get; set; }
         public int IdJob { get; set; }
         public string IdEmployee { get; set; }
         public string TitleJob { get; set; }
