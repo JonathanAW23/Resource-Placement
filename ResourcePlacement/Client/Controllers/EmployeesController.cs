@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repository.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
@@ -12,6 +13,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     public class EmployeesController : BaseController<Employee, EmployeeRepository, string>
     {
 

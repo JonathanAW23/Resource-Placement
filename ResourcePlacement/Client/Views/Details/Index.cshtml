@@ -1,25 +1,91 @@
 ﻿@{ Layout = "_LayoutAdmin"; }
 
-<div class="row" id="Interview" >
-    <table class="table" id="datainterview">
-        <thead class="thead-dark">
-            <tr>
-                <th scope="col">No.</th>
-                <th scope="col">ID</th>
-                <th scope="col">Name</th>
-                <th scope="col">Title Job</th>
-                <th scope="col">Company</th>
-                <th scope="col">InterView Date</th>
-                <th scope="col">Interview Time</th>
-                <th scope="col">Interviwer</th>
-                <th scope="col">Result</th>
-            </tr>
-        </thead>
+<style>
+    #tablebackground {
+        border: 3px solid grey;
+        border-radius: 25px;
+        background-color: white;
+        width: auto;
+        height: auto;
+    }
 
-        <tbody id="jobinterview">
-      </tbody>
-    </table>
+    #datainterview {
+        background-color: grey;
+    }
+    
+    #datahistory{
+        background-color: grey;
+    }
+</style>
+
+<div class="col-md-6">
+
+    <h1 class="mt-4">Detail Assignment</h1>
+    <ol class="breadcrumb mb-4">
+        <li class="breadcrumb-item active">Table of employee's assigment data</li>
+    </ol>
 </div>
+
+
+<div class="container" id="tablebackground">
+    <div class="row">
+        <h2 class="mt-4">Detail Interview History</h2>
+    </div>
+    <div class="row" id="Interview">
+
+
+
+        <table class="table table-bordered" id="datainterview">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Title Job</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">InterView Date</th>
+                    <th scope="col">Interview Time</th>
+                    <th scope="col">Interviewer</th>
+                    <th scope="col">Result</th>
+                </tr>
+            </thead>
+
+            <tbody id="jobinterview">
+            </tbody>
+        </table>
+    </div>
+    <br/>
+</div>
+
+<br />
+<br />
+<br />
+<div class="container" id="tablebackground">
+    <div class="row">
+        <h2 class="mt-4">Detail Job History</h2>
+    </div>
+    <div class="row" id="History">
+
+        <table class="table table-bordered" id="datahistory">
+            <thead class="thead-dark">
+                <tr>
+                    <th scope="col">No.</th>
+                    <th scope="col">ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Title Job</th>
+                    <th scope="col">Company</th>
+                    <th scope="col">Start Date</th>
+                    <th scope="col">End Date</th>
+                </tr>
+            </thead>
+
+            <tbody id="jobhistory">
+            </tbody>
+        </table>
+    </div>
+    <br/>
+</div>
+
 
 
 @section Scripts {

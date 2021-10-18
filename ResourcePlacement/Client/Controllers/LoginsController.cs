@@ -54,6 +54,8 @@ namespace Client.Controllers
             return View();
         }
 
+       
+
         [Authorize]
         [HttpGet("Logout/")]
         public IActionResult Logout()

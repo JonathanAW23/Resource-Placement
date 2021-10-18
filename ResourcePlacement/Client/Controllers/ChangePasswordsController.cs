@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Route("[controller]")]
+    [Authorize]
     public class ChangePasswordsController : BaseController<Account, AccountRepository, string>
     {
 

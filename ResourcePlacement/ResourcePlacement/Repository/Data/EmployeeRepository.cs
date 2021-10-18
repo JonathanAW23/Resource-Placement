@@ -4,6 +4,8 @@ using ResourcePlacement.ViewModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace ResourcePlacement.Repository.Data
@@ -28,7 +30,7 @@ namespace ResourcePlacement.Repository.Data
                 Email = hrvm.Email,
                 Gender = hrvm.Gender,
                 EmploymentStatus = hrvm.EmploymentStatus,
-                DepartmentId = 1
+                DepartmentId = hrvm.DepartmentID
             };
             myContext.Employees.Add(employee);
 
@@ -124,6 +126,7 @@ namespace ResourcePlacement.Repository.Data
             {
                 return null;
             }
+            
             return getHR;
         }
 

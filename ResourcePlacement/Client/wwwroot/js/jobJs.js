@@ -1,7 +1,6 @@
-﻿$(document).ready(function () {
+﻿
 
-
-
+$(document).ready(function () {
     var table = $('#datajob').DataTable({
         "filter": true,
         "dom": 'Bfrtip',
@@ -38,20 +37,11 @@
                 "data": null,
                 "orderable": false,
                 "render": function (data, type, row) {
-                    var button = `<button id= "btn-detail" class="btn btn-primary" data-toogle="modal" data-target="#GetJob" onclick="detail('${row["id"]}')">Details</button>`;
+                    var button = `<center><button id= "btn-detail" class="btn btn-primary" data-toogle="modal" data-target="#GetJob" onclick="detail('${row["id"]}')">Details</button></center>`;
                     return button
                 }
-            },
-            {
-                "data": null,
-                "orderable": false,
-                "render": function (data, type, row) {
-                    var button = `<button class="btn btn-danger" onclick="del('${row["id"]}')">Delete</button>`;
-                    return button
-                }
-
-
             }
+           
         ],
 
         "select": true,
@@ -83,57 +73,96 @@
 
     $("#submitdata").click(function (event) {
         event.preventDefault();
+        var validate;
         var obj_register = new Object();
         obj_register.Title = $("#title").val();
         obj_register.CompanyId = parseInt($('#company').val());
         obj_register.Description = $('#description').val();
       
-
-        if ($("#title").val() == "") {
+        validate = false;
+        if ($("#title").val() == "" && validate==false) {
             document.getElementById("title").className = "form-control is-invalid";
             $("#msgT").html("Job Title can't be empty");
+            validate = false;
         } else {
             document.getElementById("title").className = "form-control is-valid";
             obj_register.Title = $("#title").val();
+            validate = true;
 
         }
         if ($("#description").val() == "") {
             document.getElementById("description").className = "form-control is-invalid";
             $("#msgDescription").html("Job's description can't be empty");
+            validate = false;
         } else {
             document.getElementById("description").className = "form-control is-valid";
             obj_register.Description = $("#description").val();
-
+            validate = true;
         }
 
 
+        Swal.fire({
+            title: "Are you sure that you want to submit this data?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Submit Data!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                console.log(JSON.stringify(obj_register));
+                if (validate == true) {
+                    $.ajax({
+                        url: "/Jobs",
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: obj_register,
+                        beforeSend: function () {
+                            Swal.fire({
+                                title: 'Now loading',
+                                text: "Please wait",
+                                imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
+                                imageWidth: 200,
+                                imageHeight: 200,
+                                imageAlt: 'Custom image',
+                                showConfirmButton: false,
+                                allowOutsideClick: false
+                            })
+                        },
+                        success: function (data) {
+                            $('#register').modal('hide')
+                            Swal.fire({
+                                title: 'Success Inserting Data!',
+                                text: 'Press Any Button to Continue',
+                                icon: 'success',
+                                confirmButtonText: 'Okay'
+                            })
 
-        console.log(JSON.stringify(obj_register));
+                            $('#Register').modal('hide');
+                            table.ajax.reload();
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseJSON.errors);
 
-        $.ajax({
-            url: "/Jobs",
-            method: 'POST',
-            dataType: 'json',
-            contentType: 'application/x-www-form-urlencoded',
-            data: obj_register,
-            success: function (data) {
-                $('#register').modal('hide')
-                Swal.fire({
-                    title: 'Success Inserting Data!',
-                    text: 'Press Any Button to Continue',
-                    icon: 'success',
-                    confirmButtonText: 'Okay'
-                })
-
-                $('#Register').modal('hide');
-                table.ajax.reload();
-            },
-            error: function (xhr, status, error) {
-                console.log(xhr.responseJSON.errors);
-
+                        }
+                    })
+                } else {
+                    event.preventDefault();
+                    console.log(JSON.stringify(obj_register));
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'The form you submit is not correct',
+                        text: 'Please check your form and try submitting again!',
+                    })
+                    event.stopPropagation();
+                }
             }
         })
+       
     })
+
     $.ajax({
         url: '/Companies'
     }).done(res => {

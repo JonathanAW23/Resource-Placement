@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repository.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Route("[controller]")]
+   
     public class JobsController : BaseController<Job, JobRepository, int>
     {
         private readonly JobRepository repository;

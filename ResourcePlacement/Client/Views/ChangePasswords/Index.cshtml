@@ -2,7 +2,14 @@
 @using Microsoft.AspNetCore.Http
 @inject Microsoft.AspNetCore.Http.IHttpContextAccessor HttpContextAccessor
 @{ ViewBag.email = HttpContextAccessor.HttpContext.Session.GetString("Email"); }
-<body>
+<style>
+    #HomepageBody {
+        background-image: url("/img/login.jpg");
+        background-repeat: no-repeat;
+        background-position: center;
+    }
+</style>
+<body id="HomepageBody">
     <div class="container">
         <div class="row justify-content-center">
             <div class="col-lg-5">

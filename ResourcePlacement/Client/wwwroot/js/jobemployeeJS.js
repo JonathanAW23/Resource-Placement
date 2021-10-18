@@ -186,52 +186,63 @@
 
         console.log(validate);
 
+        Swal.fire({
+            title: "Are you sure that you want to submit this data?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Submit Data!',
+        }).then((result) => {
+            if (result.isConfirmed) {
+                if (validate == true) {
+                    $.ajax({
+                        url: "/Assigns/assign",
+                        method: 'POST',
+                        dataType: 'json',
+                        contentType: 'application/x-www-form-urlencoded',
+                        data: obj_assign,
+                        beforeSend: function () {
+                            Swal.fire({
+                                title: 'Now loading',
+                                text: "Please wait",
+                                imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
+                                imageWidth: 200,
+                                imageHeight: 200,
+                                imageAlt: 'Custom image',
+                                showConfirmButton: false,
+                                allowOutsideClick: false
+                            })
+                        },
+                        success: function (data) {
+                            Swal.fire({
+                                title: 'Success Inserting Data!',
+                                text: 'Press Any Button to Continue',
+                                icon: 'success',
+                                confirmButtonText: 'Okay'
+                            })
+                            $('#dataJobEmployee').DataTable().ajax.reload();
 
-        if (validate == true) {
-            $.ajax({
-                url: "/Assigns/assign",
-                method: 'POST',
-                dataType: 'json',
-                contentType: 'application/x-www-form-urlencoded',
-                data: obj_assign,
-                beforeSend: function () {
-                    Swal.fire({
-                        title: 'Now loading',
-                        text: "Please wait",
-                        imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
-                        imageWidth: 200,
-                        imageHeight: 200,
-                        imageAlt: 'Custom image',
-                        showConfirmButton: false,
-                        allowOutsideClick: false
+                        },
+                        error: function (xhr, status, error) {
+                            console.log(xhr.responseJSON.errors);
+
+                        }
                     })
-                },
-                success: function (data) {
+
+                } else {
+                    event.preventDefault();
+                    console.log(JSON.stringify(obj_assign));
                     Swal.fire({
-                        title: 'Success Inserting Data!',
-                        text: 'Press Any Button to Continue',
-                        icon: 'success',
-                        confirmButtonText: 'Okay'
+                        icon: 'error',
+                        title: 'The form you submit is not correct',
+                        text: 'Please check your form and try submitting again!',
                     })
-                    $('#dataJobEmployee').DataTable().ajax.reload();
-
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr.responseJSON.errors);
-
+                    event.stopPropagation();
                 }
-            })
-
-        } else {
-            event.preventDefault();
-            console.log(JSON.stringify(obj_assign));
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-            })
-            event.stopPropagation();
-        }
+            }
+        })
 
 
     })

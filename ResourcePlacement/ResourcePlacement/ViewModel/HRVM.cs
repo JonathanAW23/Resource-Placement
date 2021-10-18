@@ -26,6 +26,7 @@ namespace ResourcePlacement.ViewModel
         public string PhoneNumber { get; set; }
         [Required]
         public int Salary { get; set; }
+        public int DepartmentID { get; set; }
         public int EmploymentStatus { get; set; }
         [Required]
         [RegularExpression(@"^[a-zA-Z0-9-+_!@#$%^&*.,?''-'\s]{1,40}$",

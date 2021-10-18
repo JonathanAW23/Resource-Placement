@@ -12,6 +12,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Route("[controller]")]
+   
     public class ForgotPasswordsController : BaseController<Account, AccountRepository, string>
     {
 

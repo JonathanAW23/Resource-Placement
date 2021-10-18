@@ -256,83 +256,104 @@
         }
 
 
-
-
-
-
         console.log(validate);
+        Swal.fire({
+            title: "Are you sure that you want to submit this data?",
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, Submit Data!',
+        }).then((result) => {
 
-        if (validate == true && obj_interview.InterviewResult == 1) {
-            obj_interview.IdEmployee = $("#EmployeeId").val();
-            obj_interview.IdJob = $("#JobId").val();
-            obj_interview.FullName = interview.FullName;
-            $.ajax({
-                url: "/JEFinalizeds/Accepted",
-                method: 'POST',
-                dataType: 'json',
-                contentType: 'application/x-www-form-urlencoded',
-                data: obj_interview,
-                success: function (data) {
+            if (validate == true && obj_interview.InterviewResult == 1) {
+                obj_interview.IdEmployee = $("#EmployeeId").val();
+                obj_interview.IdJob = $("#JobId").val();
+                obj_interview.FullName = interview.FullName;
+                $.ajax({
+                    url: "/JEFinalizeds/Accepted",
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: obj_interview,
+                    beforeSend: function () {
+                        Swal.fire({
+                            title: 'Now loading',
+                            text: "Please wait",
+                            imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
+                            imageWidth: 200,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        })
+                    },
+                    success: function (data) {
+                        $('#dataJobInterview').DataTable().ajax.reload();
+                        Swal.fire({
+                            title: 'Success Inserting Data!',
+                            text: 'Press Any Button to Continue',
+                            icon: 'success',
+                            confirmButtonText: 'Okay'
+                        })
+                        $('#Result').modal('hide');
 
-                    Swal.fire({
-                        title: 'Success Inserting Data!',
-                        text: 'Press Any Button to Continue',
-                        icon: 'success',
-                        confirmButtonText: 'Okay'
-                    })
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseJSON.errors);
 
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr.responseJSON.errors);
+                    }
+                })
+            } else if (validate == true && obj_interview.InterviewResult == 0) {
 
-                }
-            })
-        } else if (validate == true && obj_interview.InterviewResult == 0) {
+                $.ajax({
+                    url: "/JEFinalizeds/Decline",
+                    method: 'POST',
+                    dataType: 'json',
+                    contentType: 'application/x-www-form-urlencoded',
+                    data: obj_interview,
+                    beforeSend: function () {
+                        Swal.fire({
+                            title: 'Now loading',
+                            text: "Please wait",
+                            imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
+                            imageWidth: 200,
+                            imageHeight: 200,
+                            imageAlt: 'Custom image',
+                            showConfirmButton: false,
+                            allowOutsideClick: false
+                        })
+                    },
+                    success: function (data) {
+                        $('#dataJobInterview').DataTable().ajax.reload();
+                        Swal.fire({
+                            title: 'Success to Finalize Assign!',
+                            text: 'Press Any Button to Continue',
+                            icon: 'success',
+                            confirmButtonText: 'Okay'
+                        })
+                        $('#Result').modal('hide');
 
-            $.ajax({
-                url: "/JEFinalizeds/Decline",
-                method: 'POST',
-                dataType: 'json',
-                contentType: 'application/x-www-form-urlencoded',
-                data: obj_interview,
-                beforeSend: function () {
-                    Swal.fire({
-                        title: 'Now loading',
-                        text: "Please wait",
-                        imageUrl: "https://c.tenor.com/5o2p0tH5LFQAAAAi/hug.gif",
-                        imageWidth: 200,
-                        imageHeight: 200,
-                        imageAlt: 'Custom image',
-                        showConfirmButton: false,
-                        allowOutsideClick: false
-                    })
-                },
-                success: function (data) {
-                    $('#dataJobInterview').DataTable().ajax.reload();
-                    Swal.fire({
-                        title: 'Success to Finalize Assign!',
-                        text: 'Press Any Button to Continue',
-                        icon: 'success',
-                        confirmButtonText: 'Okay'
-                    })
+                    },
+                    error: function (xhr, status, error) {
+                        console.log(xhr.responseJSON.errors);
 
-                },
-                error: function (xhr, status, error) {
-                    console.log(xhr.responseJSON.errors);
+                    }
+                })
 
-                }
-            })
-
-        } else {
-            event.preventDefault();
-            console.log(JSON.stringify(obj_interview));
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Something went wrong!',
-            })
-            event.stopPropagation();
+            } else {
+                event.preventDefault();
+                console.log(JSON.stringify(obj_interview));
+                Swal.fire({
+                    icon: 'error',
+                    title: 'The form you submit is not correct',
+                    text: 'Please check your form and try submitting again!',
+                })
+                event.stopPropagation();
+            }
         }
+        )
     })
 })
 

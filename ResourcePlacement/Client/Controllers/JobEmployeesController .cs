@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repository.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Route("[controller]")]
+    [Authorize(Roles= "HR")]
     public class JobEmployeesController : BaseController<JobEmployee, JobEmployeeRepository, string>
     {
         private readonly JobEmployeeRepository repository;
@@ -27,6 +29,14 @@ namespace Client.Controllers
         public async Task<JsonResult> GetInterview(string id)
         {
             var result = await repository.GetEmployeeInterview(id);
+            return Json(result);
+        }
+
+
+        [HttpGet("GetJobHistory/{id}")]
+        public async Task<JsonResult> GetJobHistory(string id)
+        {
+            var result = await repository.GetJobHistory(id);
             return Json(result);
         }
 

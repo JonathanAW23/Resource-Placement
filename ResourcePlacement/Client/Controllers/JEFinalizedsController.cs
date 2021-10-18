@@ -1,5 +1,6 @@
 ﻿using Client.Base.Controllers;
 using Client.Repository.Data;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ResourcePlacement.Model;
 using ResourcePlacement.ViewModel;
@@ -8,6 +9,7 @@ using System.Threading.Tasks;
 namespace Client.Controllers
 {
     [Route("[controller]")]
+    [Authorize(Roles = "HR")]
     public class JEFinalizedsController : BaseController<JobEmployee, JobEmployeeRepository, string>
     {
         private readonly JobEmployeeRepository repository;
